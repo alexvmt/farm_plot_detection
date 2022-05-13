@@ -1,0 +1,21 @@
+name: farm_plots
+
+channels:
+  - conda-forge
+
+dependencies:
+  - geojson
+  - geopandas
+  - geopy
+  - folium
+  - ipywidgets
+  - jupyterlab
+  - matplotlib
+  - numpy
+  - opencv
+  - pandas
+  - python=3.8
+  - rasterio
+  - sentinelsat
+  - sentinelhub
+  - utm
