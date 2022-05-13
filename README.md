@@ -9,7 +9,7 @@ Further information on KAZA: https://space-science.wwf.de/KAZAStory/
 - clone repository
 - create environment: `conda env create -f farm_plots.yaml`
 - activate environment: `conda activate farm_plots`
-- create account at [Coppernicus Open Access Hub](https://scihub.copernicus.eu/dhus/#/home)
+- create account at [Copernicus Open Access Hub](https://scihub.copernicus.eu/dhus/#/home)
 - write username and password (`{"username": "XXXX", "password": "XXXX"}`) to json file in `secrets/sentinel_api_credentials.json`
 
 ### References and further information
