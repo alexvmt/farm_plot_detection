@@ -1,8 +1,9 @@
-/**
+/*
  * Function to mask clouds using the Sentinel-2 QA band
  * @param {ee.Image} image Sentinel-2 image
  * @return {ee.Image} cloud masked Sentinel-2 image
  */
+ 
 function maskS2clouds(image) {
   var qa = image.select('QA60');
 
@@ -18,7 +19,8 @@ function maskS2clouds(image) {
 }
 
 var dataset = ee.ImageCollection('COPERNICUS/S2_SR')
-                  .filterDate('2020-04-01', '2020-04-30') // set date range according to selected year below
+                  // Set date range according to selected year below.
+				  .filterDate('2020-04-01', '2020-04-30')
                   // Pre-filter to get less cloudy granules.
                   .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE',10))
                   .map(maskS2clouds);
@@ -31,13 +33,25 @@ var visualization = {
 
 Map.setCenter(23.4, -16.5, 8);
 
+// Sample Region Sioma
+// var center = ee.Geometry.Point([23.55118, -16.64593]);
+// Sample Region Mulele
+// var center = ee.Geometry.Point([23.11159, -16.75169]);
+
+// Map.centerObject(center, 14);
+
 Map.addLayer(dataset.mean(), visualization, 'RGB');
 
 var farm_plots = ee.FeatureCollection("users/alexvmt/farm_plots")
-                    .filter('Year == 2020'); // filter year according to selected date range above
+                    // Filter year according to selected date range above.
+					.filter('Year == 2020');
 
 Map.addLayer(farm_plots);
 
-var styling = {color: 'red', fillColor: '00000000'};
+var styling = {
+	color: 'FF000088',
+	pointSize: 1,
+	fillColor: '00000000',
+};
 
 Map.addLayer(farm_plots.style(styling));
