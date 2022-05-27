@@ -1,3 +1,4 @@
 .ipynb_checkpoints/
 secrets/
+data/
 *.csv
