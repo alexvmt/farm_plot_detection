@@ -20,7 +20,7 @@ function maskS2clouds(image) {
 
 var dataset = ee.ImageCollection('COPERNICUS/S2_SR')
                   // Set date range according to selected year below.
-				  .filterDate('2020-04-01', '2020-04-30')
+                  .filterDate('2020-04-01', '2020-04-30')
                   // Pre-filter to get less cloudy granules.
                   .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE',10))
                   .map(maskS2clouds);
@@ -42,16 +42,14 @@ Map.setCenter(23.4, -16.5, 8);
 
 Map.addLayer(dataset.mean(), visualization, 'RGB');
 
-var farm_plots = ee.FeatureCollection("users/alexvmt/farm_plots")
+var farm_plots = ee.FeatureCollection("users/alexvmt/farm_plots_locations")
                     // Filter year according to selected date range above.
-					.filter('Year == 2020');
+                    .filter('year == 2020');
 
-Map.addLayer(farm_plots);
-
-var styling = {
-	color: 'FF000088',
-	pointSize: 1,
+var farm_plots_vis = farm_plots.style({
+  color: 'FF000088',
+	pointSize: 3,
 	fillColor: '00000000',
-};
+});
 
-Map.addLayer(farm_plots.style(styling));
+Map.addLayer(farm_plots_vis, null, 'Farm plots locations');
