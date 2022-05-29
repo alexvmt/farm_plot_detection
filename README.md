@@ -10,6 +10,18 @@
 
 ![Sample Region Mulele](sample_region_mulele.png 'Sample Region Mulele')
 
+#### Pixel-wise classification of sample region Sioma using Random Forest
+
+![Classification Sample Region Sioma](classification_sample_region_sioma.png 'Classification Sample Region Sioma')
+
+Landcover classes:
+
+- <span style="color:green">Green</span>: vegetation
+- <span style="color:blue">Blue</span>: water
+- <span style="color:yellow">Yellow</span>: farm_plots
+
+While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots. Some farm plots are correctly classified but urban areas and roads for example are also classified as farm plots. A pixel-wise classification thus seems to be rather challenging when it comes to identifying farm plots in this scenario.
+
 Further information on KAZA: https://space-science.wwf.de/KAZAStory/
 
 ### Requirements to download Sentinel-2 images from Copernicus Open Access Hub
