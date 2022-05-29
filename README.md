@@ -2,9 +2,13 @@
 
 ![Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year](farm_plots_fixed_locations_by_year.png 'Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year')
 
-![Sample Region Sioma (Sentinel-2 RGB Overlay April 2020)](sample_region_sioma.png 'Sample Region Sioma')
+#### Sample Region Sioma (Sentinel-2 RGB Overlay April 2020)
 
-![Sample Region Mulele (Sentinel-2 RGB Overlay April 2020](sample_region_mulele.png 'Sample Region Mulele')
+![Sample Region Sioma](sample_region_sioma.png 'Sample Region Sioma')
+
+#### Sample Region Mulele (Sentinel-2 RGB Overlay April 2020)
+
+![Sample Region Mulele](sample_region_mulele.png 'Sample Region Mulele')
 
 Further information on KAZA: https://space-science.wwf.de/KAZAStory/
 
