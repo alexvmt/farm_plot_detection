@@ -2,29 +2,37 @@
 
 ![Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year](farm_plots_fixed_locations_by_year.png 'Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year')
 
-#### Sample Region Sioma (Sentinel-2 RGB Overlay April 2020)
+Further information on KAZA: https://space-science.wwf.de/KAZAStory/
+
+## Sample Regions
+
+### Sample Region Sioma (Sentinel-2 RGB Overlay April 2020)
 
 ![Sample Region Sioma](sample_region_sioma.png 'Sample Region Sioma')
 
-#### Sample Region Mulele (Sentinel-2 RGB Overlay April 2020)
+### Sample Region Mulele (Sentinel-2 RGB Overlay April 2020)
 
 ![Sample Region Mulele](sample_region_mulele.png 'Sample Region Mulele')
 
-#### Pixel-wise classification of sample region Sioma using Random Forest
+## Pixel-wise Classification
 
-![Classification Sample Region Sioma](classification_sample_region_sioma.png 'Classification Sample Region Sioma')
+### Classification of sample region Sioma using hand-drawn points and Random Forest
+
+![Classification Sioma using hand-drawn points](classification_sioma_using_hand_drawn_points.png 'Classification Sioma using hand-drawn points')
+
+### Classification of sample region Sioma using polygons and Random Forest
+
+![Classification Sioma using polygons](classification_sioma_using_polygons.png 'Classification Sioma using polygons')
 
 Landcover classes:
 
-- <span style="color:green">Green</span>: vegetation
-- <span style="color:blue">Blue</span>: water
-- <span style="color:yellow">Yellow</span>: farm_plots
+- Green: vegetation
+- Blue: water
+- Yellow: farm_plots
 
 While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots. Some farm plots are correctly classified but urban areas and roads for example are also classified as farm plots. A pixel-wise classification thus seems to be rather challenging when it comes to identifying farm plots in this scenario.
 
-Further information on KAZA: https://space-science.wwf.de/KAZAStory/
-
-### Requirements to download Sentinel-2 images from Copernicus Open Access Hub
+## Requirements to download Sentinel-2 images from Copernicus Open Access Hub
 
 - clone repository
 - create environment: `conda env create -f farm_plots.yaml`
@@ -32,7 +40,7 @@ Further information on KAZA: https://space-science.wwf.de/KAZAStory/
 - create account at [Copernicus Open Access Hub](https://scihub.copernicus.eu/dhus/#/home)
 - write username and password (`{"username": "XXXX", "password": "XXXX"}`) to json file in `secrets/sentinel_api_credentials.json`
 
-### References and further information
+## References and further information
 
 - https://medium.com/artefact-engineering-and-data-science/leveraging-satellite-imagery-for-machine-learning-computer-vision-applications-d22143f72d94
 - https://github.com/artefactory/medium_satellite_imagery
@@ -45,3 +53,4 @@ Further information on KAZA: https://space-science.wwf.de/KAZAStory/
 - https://towardsdatascience.com/farm-segmentation-from-satellite-images-using-holistically-nested-edge-detection-63454a24b164
 - https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR
 - https://github.com/chrieke/InstanceSegmentation_Sentinel2
+- https://towardsdatascience.com/farm-segmentation-from-satellite-images-using-holistically-nested-edge-detection-63454a24b164
