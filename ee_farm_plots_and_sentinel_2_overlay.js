@@ -7,11 +7,11 @@
 function maskS2clouds(image) {
   var qa = image.select('QA60');
 
-  // Bits 10 and 11 are clouds and cirrus, respectively.
+  // Bits 10 and 11 are clouds and cirrus, respectively
   var cloudBitMask = 1 << 10;
   var cirrusBitMask = 1 << 11;
 
-  // Both flags should be set to zero, indicating clear conditions.
+  // Both flags should be set to zero, indicating clear conditions
   var mask = qa.bitwiseAnd(cloudBitMask).eq(0)
       .and(qa.bitwiseAnd(cirrusBitMask).eq(0));
 
@@ -19,10 +19,10 @@ function maskS2clouds(image) {
 }
 
 var dataset = ee.ImageCollection('COPERNICUS/S2_SR')
-                  // Set date range according to selected year below.
+                  // Set date range according to selected year below
                   .filterDate('2020-04-01', '2020-04-30')
-                  // Pre-filter to get less cloudy granules.
-                  .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE',10))
+                  // Pre-filter to get less cloudy granules
+                  .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 10))
                   .map(maskS2clouds);
 
 var visualization = {
@@ -30,8 +30,6 @@ var visualization = {
   max: 0.3,
   bands: ['B4', 'B3', 'B2'],
 };
-
-Map.setCenter(23.4, -16.5, 8);
 
 // Sample Region Sioma
 // var center = ee.Geometry.Point([23.55118, -16.64593]);
@@ -43,7 +41,7 @@ Map.setCenter(23.4, -16.5, 8);
 Map.addLayer(dataset.mean(), visualization, 'RGB');
 
 var farm_plots = ee.FeatureCollection("users/alexvmt/farm_plots_locations")
-                    // Filter year according to selected date range above.
+                    // Filter year according to selected date range above
                     .filter('year == 2020');
 
 var farm_plots_vis = farm_plots.style({
@@ -52,4 +50,5 @@ var farm_plots_vis = farm_plots.style({
 	fillColor: '00000000',
 });
 
+Map.setCenter(23.4, -16.5, 8);
 Map.addLayer(farm_plots_vis, null, 'Farm plots locations');

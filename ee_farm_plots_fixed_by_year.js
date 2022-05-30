@@ -1,6 +1,4 @@
-var farm_plots = ee.FeatureCollection("users/alexvmt/farm_plots_fixed_locations");
-
-Map.setCenter(23.4, -17, 9);
+var farm_plots = ee.FeatureCollection('users/alexvmt/farm_plots_fixed_locations');
 
 var years = ee.Dictionary({
   2017: {color: 'green', fillColor: '00000000'},
@@ -20,4 +18,5 @@ var farm_plots_vis = farm_plots.style({
   neighborhood: 8,
 });
 
+Map.setCenter(23.4, -17, 9);
 Map.addLayer(farm_plots_vis, null, 'Farm plots fixed locations by year');
