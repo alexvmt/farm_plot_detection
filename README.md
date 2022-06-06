@@ -1,6 +1,8 @@
 # Farm Plots in the Kavango Zambezi Conservation Area
 
-![Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year](farm_plots_fixed_locations_by_year.png 'Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year')
+![Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year](visualizations/farm_plots_fixed_locations_by_year.png 'Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year')
+
+![Histogram of Farm Plot Areas](visualizations/farm_plots_fixed_areas_histogram.png 'Histogram of Farm Plot Areas')
 
 Further information on KAZA: https://space-science.wwf.de/KAZAStory/
 
@@ -8,21 +10,21 @@ Further information on KAZA: https://space-science.wwf.de/KAZAStory/
 
 ### Sample Region Sioma (Sentinel-2 RGB Overlay April 2020)
 
-![Sample Region Sioma](sample_region_sioma.png 'Sample Region Sioma')
+![Sample Region Sioma](visualizations/sample_region_sioma.png 'Sample Region Sioma')
 
 ### Sample Region Mulele (Sentinel-2 RGB Overlay April 2020)
 
-![Sample Region Mulele](sample_region_mulele.png 'Sample Region Mulele')
+![Sample Region Mulele](visualizations/sample_region_mulele.png 'Sample Region Mulele')
 
 ## Pixel-wise Classification
 
 ### Classification of sample region Sioma using hand-drawn points and Random Forest
 
-![Classification Sioma using hand-drawn points](classification_sioma_using_hand_drawn_points.png 'Classification Sioma using hand-drawn points')
+![Classification Sioma using hand-drawn points](visualizations/classification_sioma_using_hand_drawn_points.png 'Classification Sioma using hand-drawn points')
 
 ### Classification of sample region Sioma using polygons and Random Forest
 
-![Classification Sioma using polygons](classification_sioma_using_polygons.png 'Classification Sioma using polygons')
+![Classification Sioma using polygons](visualizations/classification_sioma_using_polygons.png 'Classification Sioma using polygons')
 
 Landcover classes:
 
@@ -32,13 +34,10 @@ Landcover classes:
 
 While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots. Some farm plots are correctly classified but urban areas and roads for example are also classified as farm plots. A pixel-wise classification thus seems to be rather challenging when it comes to identifying farm plots in this scenario.
 
-## Requirements to download Sentinel-2 images from Copernicus Open Access Hub
+## Requirements
 
-- clone repository
-- create environment: `conda env create -f farm_plots.yaml`
+- create environment `conda env create -f farm_plots.yaml`
 - activate environment: `conda activate farm_plots`
-- create account at [Copernicus Open Access Hub](https://scihub.copernicus.eu/dhus/#/home)
-- write username and password (`{"username": "XXXX", "password": "XXXX"}`) to json file in `secrets/sentinel_api_credentials.json`
 
 ## References and further information
 
