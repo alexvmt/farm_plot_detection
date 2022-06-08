@@ -4,6 +4,8 @@
 
 ![Histogram of Farm Plot Areas](visualizations/farm_plots_fixed_areas_histogram.png 'Histogram of Farm Plot Areas')
 
+![Histogram of Farm Plot Areas by Category](visualizations/farm_plots_fixed_areas_histogram_category.png 'Histogram of Farm Plot Areas by Category')
+
 Further information on KAZA: https://space-science.wwf.de/KAZAStory/
 
 ## Sample Regions
@@ -41,15 +43,30 @@ While the classification of vegetation and water seems to show decent results, i
 
 ## References and further information
 
-- https://medium.com/artefact-engineering-and-data-science/leveraging-satellite-imagery-for-machine-learning-computer-vision-applications-d22143f72d94
+#### Google Earth Engine
+
+- https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR
+- https://developers.google.com/earth-engine/guides/tf_examples
+- https://developers.google.com/earth-engine/apidocs/ee-algorithms-image-segmentation-snic
+- https://www.youtube.com/watch?v=2R0aTaMtYTY
+
+#### GitHub
+
 - https://github.com/artefactory/medium_satellite_imagery
+- https://github.com/chrieke/InstanceSegmentation_Sentinel2
+- https://github.com/sentinel-hub/field-delineation
+
+#### Blogs
+
+- https://medium.com/artefact-engineering-and-data-science/leveraging-satellite-imagery-for-machine-learning-computer-vision-applications-d22143f72d94
 - https://medium.com/artefact-engineering-and-data-science/applying-machine-learning-algorithms-to-satellite-imagery-for-agriculture-applications-d505eb8df1b1
+- https://towardsdatascience.com/farm-segmentation-from-satellite-images-using-holistically-nested-edge-detection-63454a24b164
+- https://medium.com/radiant-earth-insights/detecting-agricultural-croplands-from-sentinel-2-satellite-imagery-a025735d3bd8
+
+#### Other
+
 - https://sentinelsat.readthedocs.io/en/stable/api_overview.html#lta-products
 - https://scihub.copernicus.eu/news/News00592
 - https://scihub.copernicus.eu/news/News00382
 - https://scihub.copernicus.eu/news/News00596
 - https://scihub.copernicus.eu/userguide/
-- https://towardsdatascience.com/farm-segmentation-from-satellite-images-using-holistically-nested-edge-detection-63454a24b164
-- https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR
-- https://github.com/chrieke/InstanceSegmentation_Sentinel2
-- https://towardsdatascience.com/farm-segmentation-from-satellite-images-using-holistically-nested-edge-detection-63454a24b164
