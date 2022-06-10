@@ -55,6 +55,7 @@ While the classification of vegetation and water seems to show decent results, i
 - https://github.com/artefactory/medium_satellite_imagery
 - https://github.com/chrieke/InstanceSegmentation_Sentinel2
 - https://github.com/sentinel-hub/field-delineation
+- https://github.com/robmarkcole/satellite-image-deep-learning#segmentation---vegetation-crops--crop-boundaries
 
 #### Blogs
 
@@ -62,6 +63,8 @@ While the classification of vegetation and water seems to show decent results, i
 - https://medium.com/artefact-engineering-and-data-science/applying-machine-learning-algorithms-to-satellite-imagery-for-agriculture-applications-d505eb8df1b1
 - https://towardsdatascience.com/farm-segmentation-from-satellite-images-using-holistically-nested-edge-detection-63454a24b164
 - https://medium.com/radiant-earth-insights/detecting-agricultural-croplands-from-sentinel-2-satellite-imagery-a025735d3bd8
+- https://soilmate.medium.com/%D1%81r%D0%BE%D1%80-field-boundary-detection-approaches-overview-and-main-challenges-53736725cb06
+- https://medium.com/onesoil/60-million-fields-and-27-crops-how-we-made-the-onesoil-map-61fe5f3bbb00
 
 #### Other
 
