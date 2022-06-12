@@ -2,23 +2,35 @@
 
 ![Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year](visualizations/farm_plots_fixed_locations_by_year.png 'Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year')
 
+Further information on KAZA: https://space-science.wwf.de/KAZAStory/
+
+## Farm plot areas
+
 ![Histogram of Farm Plot Areas](visualizations/farm_plots_fixed_areas_histogram.png 'Histogram of Farm Plot Areas')
 
 ![Histogram of Farm Plot Areas by Category](visualizations/farm_plots_fixed_areas_histogram_category.png 'Histogram of Farm Plot Areas by Category')
 
-Further information on KAZA: https://space-science.wwf.de/KAZAStory/
+## Sample regions
 
-## Sample Regions
+## Yearly, quarterly and monthly composites of sample region Sioma (Sentinel-2 RGB Overlay 2020)
 
-### Sample Region Sioma (Sentinel-2 RGB Overlay April 2020)
+![Sample Region Sioma Yearly Composite](visualizations/sample_region_sioma_yearly_composite.png 'Sample Region Sioma Yearly Composite')
+
+![Sample Region Sioma Quarterly Composite](visualizations/sample_region_sioma_quarterly_composite.png 'Sample Region Sioma Quarterly Composite')
+
+![Sample Region Sioma Monthly Composite](visualizations/sample_region_sioma_monthly_composite.png 'Sample Region Sioma Monthly Composite')
+
+February seems to be rather clouldy. March seems to be somewhat cloudy. July to November seem to be rather dry and barely vegetated. January, April, May, June and December seem to be the most promising months considering image quality and characteristics (April seems to be the most promising). The growing and harvesting seasons need to be considered as well.
+
+### Sample region Sioma (Sentinel-2 RGB Overlay April 2020)
 
 ![Sample Region Sioma](visualizations/sample_region_sioma.png 'Sample Region Sioma')
 
-### Sample Region Mulele (Sentinel-2 RGB Overlay April 2020)
+### Sample region Mulele (Sentinel-2 RGB Overlay April 2020)
 
 ![Sample Region Mulele](visualizations/sample_region_mulele.png 'Sample Region Mulele')
 
-## Pixel-wise Classification
+## Pixel-wise classification
 
 ### Classification of sample region Sioma using hand-drawn points and Random Forest
 
