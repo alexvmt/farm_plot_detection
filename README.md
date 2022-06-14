@@ -48,6 +48,14 @@ Landcover classes:
 
 While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots. Some farm plots are correctly classified but urban areas and roads for example are also classified as farm plots. A pixel-wise classification thus seems to be rather challenging when it comes to identifying farm plots in this scenario.
 
+## Image segmentation
+
+### Applying SNIC to sample region Sioma
+
+![SNIC Sioma](visualizations/sample_region_sioma_snic.png 'SNIC Sioma')
+
+Applying the SNIC clustering algorithm to a Sentinel-2 scene from April 2020 yields the result above. The river and some roads could be guessed but farm plots cannot be identified really. Perhaps the algorithm's parameters need some more tuning.
+
 ## Requirements
 
 - create environment `conda env create -f farm_plots.yaml`
