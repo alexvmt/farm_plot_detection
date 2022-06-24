@@ -48,6 +48,13 @@ Landcover classes:
 
 While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots. Some farm plots are correctly classified but urban areas and roads for example are also classified as farm plots. A pixel-wise classification thus seems to be rather challenging when it comes to identifying farm plots in this scenario.
 
+### Classification of sample region Sioma using hand-drawn points and a neural net with 3 hidden layers
+
+![Classification Sioma Neural Net](visualizations/classification_sioma_neural_net.png 'Classification Sioma Neural Net')
+
+Using a more complex model, namely a neural net with 3 hidden layers, yields a better classification result. However, the issue of distinguishing farm plots, roads and settlements remains. A fourth landcover class containing all human structures like settlements and roads but not farm plots could be helpful. But getting such accurate labeled data is challenging.
+
+
 ## Image segmentation
 
 ### Applying SNIC to sample region Sioma
