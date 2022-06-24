@@ -1,6 +1,4 @@
-// https://developers.google.com/earth-engine/guides/classification
-
-// Polygons for vegetation and water classes
+// Polygons for vegetation and water landcover classes
 var vegetation = /* color: #22ff38 */ee.Geometry.Polygon(
         [[[23.52635384094239, -16.643377926342076],
           [23.528327946777353, -16.644611445848025],
@@ -19,73 +17,116 @@ var vegetation = /* color: #22ff38 */ee.Geometry.Polygon(
 // Select region of interest: Sioma
 var roi = ee.Geometry.Point([23.56987, -16.6641]);
 
-// Select Sentinel-2 image
-var image = ee.Image(ee.ImageCollection('COPERNICUS/S2_SR')
-                  // Filter bounds
-                  .filterBounds(roi)
-                  // Filter date
-                  .filterDate('2020-04-01', '2020-04-30')
-                  // Sort by cloud cover (ascending)
-                  .sort('CLOUDY_PIXEL_PERCENTAGE')
-                  // Select least cloudy image
-                  .first());
+// Select Sentinel-2 images
+var s2_images = ee.ImageCollection('COPERNICUS/S2_SR')
+	// Filter bounds
+	.filterBounds(roi)
+	// Filter date
+	.filterDate('2020-04-01', '2020-04-30')
+	// Sort by cloud cover
+	.sort('CLOUDY_PIXEL_PERCENTAGE');
 
-var visualization = {
-  min: 0.0,
-  max: 3000,
-  bands: ['B4', 'B3', 'B2'],
-};
+// Set visualization parameters
+var vis_params = {
+	min: 0.0,
+	max: 3000,
+	bands: ['B4', 'B3', 'B2']
+	};
 
 Map.centerObject(roi, 14);
-Map.addLayer(image, visualization, 'RGB');
+
+// Visualize least cloudy image
+Map.addLayer(s2_images.first(), vis_params, 'RGB');
 
 // Load farm plots
-var farm_plots = ee.FeatureCollection("users/alexvmt/farm_plots_fixed_locations")
-                    // Filter year according to selected date range above
-                    .filter('year == 2020');
+var farm_plots = ee.FeatureCollection('users/alexvmt/farm_plots_fixed_locations')
+	// Filter year according to selected date range above
+	.filter('year == 2020');
 
 // Add class and select class property only
 var farm_plots_processed = farm_plots
-  .map(function(feature){
-    return feature.set('class', 2);
-  })
-  .select('class');
+	.map(function(feature){
+	return feature.set('landcover', 2);
+	})
+	.select('landcover');
 
 // Merge vegetation, water and farm plots features
 var features = ee.FeatureCollection([
-  ee.Feature(vegetation, {'class': 0}),
-  ee.Feature(water, {'class': 1}),
-  ])
-  .merge(farm_plots_processed);
+	ee.Feature(vegetation, {'landcover': 0}),
+	ee.Feature(water, {'landcover': 1})
+	])
+	.merge(farm_plots_processed);
 
-// Select bands for classification
-var bands = ['B2', 'B3', 'B4', 'B8'];
+// NDVI function
+var addNDVI = function(image) {
+	var ndvi = image.normalizedDifference(['B8', 'B4']).rename('NDVI');
+	return image.addBands(ndvi);
+	};
+
+// Apply NDVI function to image collection and select least cloudy image
+var s2_image = s2_images.map(addNDVI).first();
+
+// Select bands and NDVI for classification
+var bands = ['B2', 'B3', 'B4', 'B8', 'NDVI'];
 
 // Create training data
-var training = image.select(bands).sampleRegions({
-  collection: features,
-  properties: ['class'],
-  scale: 10
-});
+var training = s2_image.select(bands).sampleRegions({
+	collection: features,
+	properties: ['landcover'],
+	scale: 10
+	});
 
 // Train classifier
 var classifier = ee.Classifier.smileRandomForest(10).train({
-  features: training,
-  classProperty: 'class',
-  inputProperties: bands
-});
+	features: training,
+	classProperty: 'landcover',
+	inputProperties: bands
+	});
+
+// Print some info about the classifier
+print('Random forest, explained', classifier.explain());
 
 // Classify selected region
-var classified = image.select(bands).classify(classifier);
+var classified_image = s2_image.select(bands).classify(classifier);
 
 // Display classification
-Map.addLayer(classified, {min: 0, max: 2, palette: ['green', 'blue', 'yellow']}, 'Classification');
+Map.addLayer(classified_image, {min: 0, max: 2, palette: ['green', 'blue', 'yellow']}, 'Classification');
 
 var farm_plots_vis = farm_plots.style({
-  color: 'FF000088',
-	fillColor: '00000000',
-});
+	color: 'FF000088',
+	fillColor: '00000000'
+	});
 
 Map.addLayer(farm_plots_vis, null, 'Farm plots fixed locations');
 Map.addLayer(vegetation, {color: 'darkgreen'}, 'Vegetation');
 Map.addLayer(water, {color: 'darkblue'}, 'Water');
+
+// Add column of random uniforms to training dataset
+var withRandom = training.randomColumn('random');
+
+// Train test split: 70% training, 30% testing
+var split = 0.7;  
+var trainingPartition = withRandom.filter(ee.Filter.lt('random', split));
+var testingPartition = withRandom.filter(ee.Filter.gte('random', split));
+
+// Train classifier on train set
+var trainedClassifier = ee.Classifier.smileRandomForest(10).train({
+	features: trainingPartition,
+	classProperty: 'landcover',
+	inputProperties: bands
+	});
+
+// Classify test set
+var test = testingPartition.classify(trainedClassifier);
+
+// Print confusion matrix
+var confusionMatrix = test.errorMatrix('landcover', 'classification');
+print('Confusion Matrix', confusionMatrix);
+
+// Calculate train accuracy
+var trainAccuracy = trainedClassifier.confusionMatrix();
+print('Train accuracy: ', trainAccuracy.accuracy());
+
+// Calculate test accuracy
+var testAccuracy = test.errorMatrix('landcover', 'classification');
+print('Test accuracy: ', testAccuracy.accuracy());
