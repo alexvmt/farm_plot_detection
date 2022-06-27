@@ -1,18 +1,20 @@
-# Farm Plots in the Kavango Zambezi Conservation Area
+# Exploring and Detecting Farm Plots in the Kavango-Zambezi Transfrontier Conservation Area
 
-![Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year](visualizations/farm_plots_fixed_locations_by_year.png 'Farm Plots Fixed Locations in the Kavango Zambezi Conservation Area by Year')
+![Farm Plots Fixed Locations by Year](visualizations/farm_plots_fixed_locations_by_year.png 'Farm Plots Fixed Locations by Year')
 
 Further information on KAZA: https://space-science.wwf.de/KAZAStory/
 
 ## Farm plot areas
 
-![Histogram of Farm Plot Areas](visualizations/farm_plots_fixed_areas_histogram.png 'Histogram of Farm Plot Areas')
+![Farm Plots Fixed Areas Histogram](visualizations/farm_plots_fixed_areas_histogram.png 'Farm Plots Fixed Areas Histogram')
 
-![Histogram of Farm Plot Areas by Category](visualizations/farm_plots_fixed_areas_histogram_category.png 'Histogram of Farm Plot Areas by Category')
+![Farm Plots Fixed Areas Histogram Category](visualizations/farm_plots_fixed_areas_histogram_category.png 'Farm Plots Fixed Areas Histogram Category')
+
+There are mostly small farm plots which makes detection especially challenging.
 
 ## Sample regions
 
-## Yearly, quarterly and monthly composites of sample region Sioma (Sentinel-2 RGB Overlay 2020)
+### Yearly, quarterly and monthly composites of sample region Sioma (Sentinel-2 RGB Overlay 2020)
 
 ![Sample Region Sioma Yearly Composite](visualizations/sample_region_sioma_yearly_composite.png 'Sample Region Sioma Yearly Composite')
 
@@ -20,7 +22,7 @@ Further information on KAZA: https://space-science.wwf.de/KAZAStory/
 
 ![Sample Region Sioma Monthly Composite](visualizations/sample_region_sioma_monthly_composite.png 'Sample Region Sioma Monthly Composite')
 
-February seems to be rather clouldy. March seems to be somewhat cloudy. July to November seem to be rather dry and barely vegetated. January, April, May, June and December seem to be the most promising months considering image quality and characteristics (April seems to be the most promising). The growing and harvesting seasons need to be considered as well.
+February seems to be rather clouldy. March seems to be somewhat cloudy. July to November seem to be rather dry and barely vegetated. January, April, May, June and December seem to be the most promising months considering image quality and characteristics (April seems to be the most promising). The growing and harvesting seasons need to be considered as well. The planting usually takes place in November/December. The harvest takes place in April/May.
 
 ### Sample region Sioma (Sentinel-2 RGB Overlay April 2020)
 
@@ -40,20 +42,19 @@ February seems to be rather clouldy. March seems to be somewhat cloudy. July to 
 
 ![Classification Sioma using polygons](visualizations/classification_sioma_using_polygons.png 'Classification Sioma using polygons')
 
-Landcover classes:
+Landcover classes
 
 - Green: vegetation
 - Blue: water
 - Yellow: farm_plots
 
-While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots. Some farm plots are correctly classified but urban areas and roads for example are also classified as farm plots. A pixel-wise classification thus seems to be rather challenging when it comes to identifying farm plots in this scenario.
+While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots. Some farm plot pixels are correctly classified but settlement areas and roads for example are also classified as farm plots. A pixel-wise classification thus seems to be rather challenging when it comes to detecting farm plots in this scenario.
 
 ### Classification of sample region Sioma using hand-drawn points and a neural net with 3 hidden layers
 
-![Classification Sioma Neural Net](visualizations/classification_sioma_neural_net.png 'Classification Sioma Neural Net')
+![Sioma Classification Neural Net](visualizations/sioma_classification_neural_net 'Sioma Classification Neural Net')
 
-Using a more complex model, namely a neural net with 3 hidden layers, yields a better classification result. However, the issue of distinguishing farm plots, roads and settlements remains. A fourth landcover class containing all human structures like settlements and roads but not farm plots could be helpful. But getting such accurate labeled data is challenging.
-
+Using a more complex model, namely a neural net with 3 hidden layers, yields a better classification result. However, the issue of distinguishing farm plots, settlements and roads remains. A fourth landcover class containing all human structures like settlements and roads but not farm plots could be helpful. But getting such accurate labeled data is challenging due to similar spectral properties and too coarse resolution. Instance segmentation, also considering the shape of objects, could be a more promising path.
 
 ## Image segmentation
 
@@ -61,7 +62,7 @@ Using a more complex model, namely a neural net with 3 hidden layers, yields a b
 
 ![SNIC Sioma](visualizations/sample_region_sioma_snic.png 'SNIC Sioma')
 
-Applying the SNIC clustering algorithm to a Sentinel-2 scene from April 2020 yields the result above. The river and some roads could be guessed but farm plots cannot be identified really. Perhaps the algorithm's parameters need some more tuning.
+Applying the SNIC clustering algorithm to a Sentinel-2 composite from April 2020 yields the result above. The river and some roads could be guessed but farm plots cannot be identified really. Perhaps the algorithm's parameters need some more tuning.
 
 ## Requirements
 
