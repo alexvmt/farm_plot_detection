@@ -1,4 +1,4 @@
-var classified_image = ee.Image('projects/ee-alexvmt/assets/sentinel_api_test')
+var classified_image = ee.Image('projects/ee-alexvmt/assets/sentinel_2_sioma_classification_neural_net')
 
 var vis_params = {
 	bands: 'prediction',
