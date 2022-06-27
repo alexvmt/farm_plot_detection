@@ -52,7 +52,7 @@ While the classification of vegetation and water seems to show decent results, i
 
 ### Classification of sample region Sioma using hand-drawn points and a neural net with 3 hidden layers
 
-![Sioma Classification Neural Net](visualizations/sioma_classification_neural_net 'Sioma Classification Neural Net')
+![Sioma Classification Neural Net](visualizations/sioma_classification_neural_net.png 'Sioma Classification Neural Net')
 
 Using a more complex model, namely a neural net with 3 hidden layers, yields a better classification result. However, the issue of distinguishing farm plots, settlements and roads remains. A fourth landcover class containing all human structures like settlements and roads but not farm plots could be helpful. But getting such accurate labeled data is challenging due to similar spectral properties and too coarse resolution. Instance segmentation, also considering the shape of objects, could be a more promising path.
 
