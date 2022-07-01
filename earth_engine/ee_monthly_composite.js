@@ -16,7 +16,7 @@ function maskS2clouds(image) {
 		.and(qa.bitwiseAnd(cirrusBitMask).eq(0));
 
 	return image.updateMask(mask).divide(10000);
-	}
+	};
 
 var jan = ee.ImageCollection('COPERNICUS/S2_SR')
 	// Set date range
@@ -159,7 +159,7 @@ var months = {
 	'Oct': oct,
 	'Nov': nov,
 	'Dec': dec
-	}
+	};
 
 var maps = [];
 
@@ -168,7 +168,7 @@ for (var month in months) {
 	map.addLayer(months[month], vis_params, 'RGB')
 	map.add(ui.Label(month))
 	maps.push(map);
-	}
+	};
 
 //ui.root.widgets().reset(maps);
 var linker = ui.Map.Linker(maps);

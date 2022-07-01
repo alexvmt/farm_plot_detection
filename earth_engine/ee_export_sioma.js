@@ -16,7 +16,7 @@ function maskS2clouds(image) {
 		.and(qa.bitwiseAnd(cirrusBitMask).eq(0));
 
 	return image.updateMask(mask).divide(10000);
-	}
+	};
 
 // Sample region Sioma rectangle
 var roi = ee.Geometry.Polygon(
@@ -45,7 +45,7 @@ var vis_params = {
   bands: ['B4', 'B3', 'B2']
   };
 
-Map.centerObject(roi, 12)
+Map.centerObject(roi, 12);
 Map.addLayer(s2_image, vis_params, 'RGB');
 
 // Export image to Drive

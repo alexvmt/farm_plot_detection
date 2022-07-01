@@ -16,7 +16,7 @@ function maskS2clouds(image) {
 		.and(qa.bitwiseAnd(cirrusBitMask).eq(0));
 
 	return image.updateMask(mask).divide(10000);
-	}
+	};
 
 var q1 = ee.ImageCollection('COPERNICUS/S2_SR')
 	// Set date range
@@ -71,7 +71,7 @@ var quarters = {
 	'Q2': q2,
 	'Q3': q3,
 	'Q4': q4
-	}
+	};
 
 var maps = [];
 
@@ -80,7 +80,7 @@ for (var quarter in quarters) {
 	map.addLayer(quarters[quarter], vis_params, 'RGB')
 	map.add(ui.Label(quarter))
 	maps.push(map);
-	}
+	};
 
 // Show scale
 maps[0].setControlVisibility({scaleControl: true});

@@ -12,7 +12,7 @@ var years = ee.Dictionary({
 // Map years and colors
 function map_style_to_years(feature) {
 	return feature.set('style', years.get(feature.get('year')));
-	}
+	};
 
 farm_plots = farm_plots.map(map_style_to_years);
 

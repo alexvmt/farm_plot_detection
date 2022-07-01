@@ -16,7 +16,7 @@ function maskS2clouds(image) {
 		.and(qa.bitwiseAnd(cirrusBitMask).eq(0));
 
 	return image.updateMask(mask).divide(10000);
-	}
+	};
 
 var s2_image = ee.ImageCollection('COPERNICUS/S2_SR')
 	// Set date range
