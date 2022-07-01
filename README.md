@@ -48,13 +48,13 @@ Landcover classes
 - Blue: water
 - Yellow: farm_plots
 
-While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots. Some farm plot pixels are correctly classified but settlement areas and roads for example are also classified as farm plots. A pixel-wise classification thus seems to be rather challenging when it comes to detecting farm plots in this scenario.
+While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots. Some farm plot pixels are correctly classified but bare soil, settlement areas and roads for example are also classified as farm plots. A pixel-wise classification thus seems to be rather challenging when it comes to detecting farm plots in this scenario.
 
 ### Classification of sample region Sioma using hand-drawn points and a neural net with 3 hidden layers
 
 ![Sioma Classification Neural Net](visualizations/sioma_classification_neural_net.png 'Sioma Classification Neural Net')
 
-Using a more complex model, namely a neural net with 3 hidden layers, yields a better classification result. However, the issue of distinguishing farm plots, settlements and roads remains. A fourth landcover class containing all human structures like settlements and roads but not farm plots could be helpful. But getting such accurate labeled data is challenging due to similar spectral properties and too coarse resolution. Instance segmentation, also considering the shape of objects, could be a more promising path.
+Using a more complex model, namely a neural net with 3 hidden layers, yields a better classification result. The classified image can be further explored in a split panel in Earth Engine using [this](https://code.earthengine.google.com/8c8143278fec66f262ff87e0469cdab8) link to the Code Editor. However, the issue of distinguishing farm plots, bare soil, settlements and roads remains. Other landcover classes containing bare soil and human-influenced structures like settlements and roads could be helpful. But getting such accurate labeled data is challenging due to similar spectral properties and too coarse resolution. Instance segmentation, also considering the shape of objects, could be a more promising path.
 
 ## Image segmentation
 
@@ -84,6 +84,8 @@ Applying the SNIC clustering algorithm to a Sentinel-2 composite from April 2020
 - https://github.com/chrieke/InstanceSegmentation_Sentinel2
 - https://github.com/sentinel-hub/field-delineation
 - https://github.com/robmarkcole/satellite-image-deep-learning#segmentation---vegetation-crops--crop-boundaries
+- https://github.com/nasaharvest/togo-crop-mask
+- https://github.com/nasaharvest/crop-mask
 
 #### Blogs
 
