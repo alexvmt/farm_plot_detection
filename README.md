@@ -1,14 +1,30 @@
 # Exploring and Detecting Farm Plots in the Kavango-Zambezi Transfrontier Conservation Area
 
+Read more on KAZA [here](https://space-science.wwf.de/KAZAStory/).
+
 ![Farm Plots Fixed Locations by Year](visualizations/farm_plots_fixed_locations_by_year.png 'Farm Plots Fixed Locations by Year')
 
-Further information on KAZA: https://space-science.wwf.de/KAZAStory/
+### Years of data collection
+
+![Histogram Years](visualizations/histogram_years.png 'Histogram Years')
 
 ## Farm plot areas
 
-![Farm Plots Fixed Areas Histogram](visualizations/farm_plots_fixed_areas_histogram.png 'Farm Plots Fixed Areas Histogram')
+### Square meters
 
-![Farm Plots Fixed Areas Histogram Category](visualizations/farm_plots_fixed_areas_histogram_category.png 'Farm Plots Fixed Areas Histogram Category')
+![Histogram Farm Plot Areas Square Meters](visualizations/histogram_farm_plot_areas_square_meters.png 'Histogram Farm Plot Areas Square Meters')
+
+### Hectares
+
+![Histogram Farm Plot Areas Hectares](visualizations/histogram_farm_plot_areas_hectares.png 'Histogram Farm Plot Areas Hectares')
+
+### Acres
+
+![Histogram Farm Plot Areas Acres](visualizations/histogram_farm_plot_areas_acres.png 'Histogram Farm Plot Areas Acres')
+
+### Category
+
+![Histogram Farm Plot Areas Category](visualizations/histogram_farm_plot_areas_category.png 'Histogram Farm Plot Areas Category')
 
 There are mostly small farm plots which makes detection especially challenging.
 
