@@ -1,0 +1,13 @@
+name: farm_plot_detection
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.8
+  - pandas
+  - matplotlib
+  - geopandas
+  - folium
+  - ipywidgets
+  - jupyterlab
