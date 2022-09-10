@@ -52,8 +52,9 @@ Map.addLayer(s2_image, vis_params, 'RGB');
 Export.image.toDrive({
 	image: s2_image,
 	description: 'sample_region_sioma_april_2020',
-	folder: 'farm_plots',
-	scale: 10,
+	folder: 'farm_plot_detection',
 	region: roi,
-	maxPixels: 1e13
+	scale: 10,
+	maxPixels: 1e13,
+	fileFormat: 'GeoTIFF'
 	});
