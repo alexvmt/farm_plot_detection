@@ -82,8 +82,10 @@ Applying the SNIC clustering algorithm to a Sentinel-2 composite from April 2020
 
 ## Requirements
 
-- create environment `conda env create -f farm_plots.yaml`
-- activate environment: `conda activate farm_plots`
+Assuming `conda` is installed, do the following to run the EDA notebook:
+
+- create environment `conda env create --file=farm_plot_detection.yaml`
+- activate environment: `conda activate farm_plot_detection`
 
 ## References and further information
 
