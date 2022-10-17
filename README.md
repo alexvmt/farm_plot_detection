@@ -1,6 +1,9 @@
 # Exploring and Detecting Farm Plots in the Kavango-Zambezi Transfrontier Conservation Area
 
-Read more on KAZA [here](https://space-science.wwf.de/KAZAStory/).
+This project is about monitoring agricultural practices in the [Kavango-Zambezi Transfrontier Conservation Area](https://space-science.wwf.de/KAZAStory/)
+in collaboration with WWF Germany's [Space+Science Team](https://space-science.wwf.de/).
+To do so it is necessary to know where agricultural areas (i. e. farm plots) are and how their locations and properties change over time.
+Satellite images (e. g. Sentinel-2) can be used to identifiy cropland, applying different methods such as pixel-wise classification and instance segmentation.
 
 ## Farm plot locations
 
@@ -16,21 +19,26 @@ Read more on KAZA [here](https://space-science.wwf.de/KAZAStory/).
 
 There are mostly small farm plots which makes detection especially challenging.
 
-## Sentinel-2 RGB composite for sample region Sioma (2020)
+## Sentinel-2 RGB composites for sample region Sioma (2020)
 
-### Year
+### Yearly resolution
 
 ![Sample Region Sioma Yearly Composite](visualizations/sample_region_sioma_yearly_composite.png 'Sample Region Sioma Yearly Composite')
 
-### Quarter
+### Quarterly resolution
 
 ![Sample Region Sioma Quarterly Composite](visualizations/sample_region_sioma_quarterly_composite.png 'Sample Region Sioma Quarterly Composite')
 
-### Month
+### Monthly resolution
 
 ![Sample Region Sioma Monthly Composite](visualizations/sample_region_sioma_monthly_composite.png 'Sample Region Sioma Monthly Composite')
 
-February seems to be rather clouldy. March seems to be somewhat cloudy. July to November seem to be rather dry and barely vegetated. January, April, May, June and December seem to be the most promising months considering image quality and characteristics (April seems to be the most promising). The growing and harvesting seasons need to be considered as well. The planting usually takes place in November/December. The harvest takes place in April/May.
+February seems to be rather clouldy.
+March seems to be somewhat cloudy.
+July to November seem to be rather dry and barely vegetated.
+January, April, May, June and December seem to be the most promising months considering image quality and characteristics (April seems to be the most promising).
+The growing and harvesting seasons need to be considered as well. The planting usually takes place in November/December.
+The harvest takes place in April/May.
 
 ### Sample region Sioma with farm plot polygons (Sentinel-2 RGB Overlay April 2020)
 
@@ -67,6 +75,13 @@ Other landcover classes containing bare soil and human-influenced structures lik
 But getting such accurate labeled data is challenging due to similar spectral properties and too coarse resolution.
 Instance segmentation, also considering the shape of objects, or leveraging the fact that a farm plot pixel looks differently throughout the year could be more promising paths.
 
+### 2020 crop probability map for Sioma using [NASA Harvest's OpenMapFlow](https://github.com/nasaharvest/openmapflow)
+
+OpenMapFlow takes into account that pixel values change throughout the year, uses more than just RGB bands and applies a pre-trained deep learning model,
+resulting in superior predictive performance compared to pixel-wise classification of a singe image or composite.
+
+![Crop Probability Map Sioma](visualizations/crop_probability_map_sioma.png 'Crop Probability Map Sioma')
+
 ## Requirements
 
 Assuming `conda` is installed, do the following to run the exploratory notebooks:
@@ -91,6 +106,7 @@ Assuming `conda` is installed, do the following to run the exploratory notebooks
 - https://github.com/robmarkcole/satellite-image-deep-learning#segmentation---vegetation-crops--crop-boundaries
 - https://github.com/nasaharvest/togo-crop-mask
 - https://github.com/nasaharvest/crop-mask
+- https://github.com/nasaharvest/openmapflow
 
 #### Blogs
 
