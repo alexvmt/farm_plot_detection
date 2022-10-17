@@ -82,6 +82,8 @@ resulting in superior predictive performance compared to pixel-wise classificati
 
 ![Crop Probability Map Sioma](visualizations/crop_probability_map_sioma.png 'Crop Probability Map Sioma')
 
+The crop probability map above can be further explored in Earth Engine using [this](https://code.earthengine.google.com/27b9028bf982e8cd50f986c4d4002d24) link to the Code Editor.
+
 ## Requirements
 
 Assuming `conda` is installed, do the following to run the exploratory notebooks:
