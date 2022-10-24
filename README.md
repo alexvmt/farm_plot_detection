@@ -1,7 +1,7 @@
 # Exploring and Detecting Farm Plots in the Kavango-Zambezi Transfrontier Conservation Area
 
 This project is about monitoring agricultural practices in the [Kavango-Zambezi Transfrontier Conservation Area](https://space-science.wwf.de/KAZAStory/)
-in collaboration with WWF Germany's [Space+Science Team](https://space-science.wwf.de/).
+in collaboration with [WWF Germany's Space+Science Team](https://space-science.wwf.de/).
 To do so, it is necessary to know where agricultural areas (i. e. farm plots) are and how their locations and properties change over time.
 Satellite images (e. g. from Sentinel-2) can be used to identifiy cropland, applying different methods such as pixel-wise classification and instance segmentation.
 
@@ -22,7 +22,7 @@ To do
 
 **Contents**
 
-- [What does the area look like from space anyway?](#what-does-the-area-look-like-from-space-anyway)
+- [What does the region look like from space anyway?](#what-does-the-region-look-like-from-space-anyway)
 - [Cropland classification using field campaign dataset](#cropland-classification-using-field-campaign-dataset)
 - [Cropland classification using KAZA Landcover 2020 dataset](#cropland-classification-using-KAZA-Landcover-2020-dataset)
 - [Requirements](#requirements)
@@ -30,9 +30,9 @@ To do
 
 
 
-## What does the area look like from space anyway?
+## What does the region look like from space anyway?
 
-The following images show Sentinel-2 RGB composites at different temporal resolutions for the sample region of Sioma in 2020.
+The following images show Sentinel-2 RGB composites at different temporal resolutions for the sample region of Sioma in 2020, created using Google Earth Engine.
 
 ### Yearly resolution
 
@@ -46,7 +46,7 @@ The following images show Sentinel-2 RGB composites at different temporal resolu
 
 ![Sample Region Sioma Monthly Composite](visualizations/sample_region_sioma_monthly_composite.png 'Sample Region Sioma Monthly Composite')
 
-It is evident that the area is subject to significant variations throughout the seasons of year.
+It is evident that the area is subject to significant variations throughout the seasons of a given year.
 February seems to be rather clouldy.
 March seems to be somewhat cloudy.
 July to November seem to be rather dry and barely vegetated.
@@ -58,7 +58,7 @@ The harvest takes place in April/May.
 
 ## Cropland classification using field campaign dataset
 
-The models are trained and applied to the sample region of Sioma.
+The models are trained and applied to the sample region of Sioma, using Google Earth Engine.
 
 The used landcover classes include:
 
@@ -96,7 +96,8 @@ that can be tuned using data from the respective region of interest, resulting i
 
 ![Crop Probability Map Sioma](visualizations/crop_probability_map_sioma.png 'Crop Probability Map Sioma')
 
-The exemplary crop probability map above can be further explored in Earth Engine using [this](https://code.earthengine.google.com/27b9028bf982e8cd50f986c4d4002d24) link to the Code Editor.
+The exemplary crop probability map above does not yet include any KAZA data but is created on the ground of data that comes with OpenMapFlow.
+The map can be further explored in Earth Engine using [this](https://code.earthengine.google.com/27b9028bf982e8cd50f986c4d4002d24) link to the Code Editor.
 
 
 
