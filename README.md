@@ -6,14 +6,15 @@ To do so, it is necessary to know where agricultural areas (i. e. farm plots) ar
 Satellite images (e. g. from Sentinel-2) can be used to identifiy cropland, applying different methods such as pixel-wise classification and instance segmentation.
 
 There are two datasets to explore.
-First, there is a dataset collected during a WWF field campaign, consisting of point coordinates that mark farm plots, spanning the period from 2017 to 2020.
-These point coordinates have been used by WWF as the basis for manually drawing field polygons using Google Earth in 2022.
+First, there is a dataset collected during a WWF field campaign, consisting of point coordinates that mark farm plots and spanning the period from 2017 to 2020.
+These point coordinates have been used by WWF as the basis for manually drawing farm plot polygons using Google Earth in 2022.
 [This](https://github.com/alexvmt/farm_plot_detection/blob/main/exploring_farm_plot_polygons_and_points.ipynb) notebook describes and explores the field campaign data in detail.
-Second, there is the KAZA Landcover 2020 dataset by WWF, constituting a landcover map for the entire KAZA complex with 18 distinct landcover classes, including cropland.
-[Here](https://space-science.wwf.de/KAZAlandcover/) is the link to the updated KAZA Landcover 2021 dataset, including a link to the technical report describing the 2020 dataset and its creation.
+Second, there is the [KAZA Landcover 2020](https://space-science.wwf.de/KAZAlandcover/) dataset by WWF, constituting a landcover map for the entire KAZA complex with 18 distinct landcover classes, including cropland.
+The data can be downloaded [here](https://panda.maps.arcgis.com/home/item.html?id=0bd9f1902e4c4b9389d8c1f473c76d04), including a link to the technical report that describes the dataset and its creation in detail.
 
 To do
 
+- finalize sampling from KAZA Landcover 2020
 - test random forest and neural net using data sampled from KAZA Landcover 2020
 - feed data sampled from KAZA Landcover 2020 into OpenMapFlow
 - create crop probability maps for 6 Bengo regions of interest for 2020 and 2021
