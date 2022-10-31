@@ -42,7 +42,7 @@ var vis_params = {
 
 // Farm plot polygons 2020
 
-var farm_plots = ee.FeatureCollection("users/alexvmt/farm_plots_fixed_locations")
+var farm_plots = ee.FeatureCollection('projects/ee-alexvmt/assets/farm_plots_fixed')
 	// Filter year according to selected date range above
 	.filter('year == 2020');
 
@@ -55,7 +55,7 @@ var farm_plots_vis = farm_plots.style({
 
 // Prediction 2020
 
-var image = ee.Image("users/alexvmt/openmapflow_sioma_example");
+var image = ee.Image('users/alexvmt/openmapflow_sioma_example');
 var palettes = require('users/gena/packages:palettes');
 var palette = palettes.cmocean.Speed[7];
 

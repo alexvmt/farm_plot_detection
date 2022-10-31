@@ -45,7 +45,7 @@ var vis_params = {
 
 Map.addLayer(s2_image, vis_params, 'RGB');
 
-var farm_plots = ee.FeatureCollection("users/alexvmt/farm_plots_fixed_locations")
+var farm_plots = ee.FeatureCollection('projects/ee-alexvmt/assets/farm_plots_fixed')
 	// Filter year according to selected date range above
 	.filter('year == 2020');
 

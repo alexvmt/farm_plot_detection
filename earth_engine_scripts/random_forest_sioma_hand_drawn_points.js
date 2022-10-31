@@ -544,7 +544,11 @@ var vegetation = /* color: #16d64d */ee.FeatureCollection(
             })]);
 
 // Select region of interest: Sioma
-var roi = ee.Geometry.Point([23.56987, -16.6641]);
+var roi = ee.Geometry.Polygon(
+	[[[23.52, -16.64],
+	[23.52, -16.69],
+	[23.61, -16.69],
+	[23.61, -16.64]]], null, false);
 
 // Select Sentinel-2 images
 var s2_images = ee.ImageCollection('COPERNICUS/S2_SR')
@@ -565,7 +569,7 @@ var vis_params = {
 Map.centerObject(roi, 14);
 
 // Visualize least cloudy image
-Map.addLayer(s2_images.first(), vis_params, 'RGB');
+Map.addLayer(s2_images.first().clip(roi), vis_params, 'RGB');
 
 // Merge landcover feature collections
 var newfc = vegetation.merge(water).merge(farm_plots);
@@ -603,7 +607,7 @@ print('Random forest, explained', classifier.explain());
 var classified_image = s2_image.select(bands).classify(classifier);
 
 // Display classification
-Map.addLayer(classified_image, {min: 0, max: 2, palette: ['green', 'blue', 'yellow']}, 'Classification');
+Map.addLayer(classified_image.clip(roi), {min: 0, max: 2, palette: ['green', 'blue', 'yellow']}, 'Classification');
 
 // Add column of random uniforms to training dataset
 var withRandom = training.randomColumn('random');

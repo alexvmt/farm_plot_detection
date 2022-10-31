@@ -1,5 +1,5 @@
-// Load farm plots fixed locations
-var farm_plots = ee.FeatureCollection('users/alexvmt/farm_plots_fixed_locations');
+// Load farm plots fixed
+var farm_plots = ee.FeatureCollection('projects/ee-alexvmt/assets/farm_plots_fixed');
 
 // Create years dictionary
 var years = ee.Dictionary({
@@ -23,4 +23,4 @@ var farm_plots_vis = farm_plots.style({
 	});
 
 Map.setCenter(23.4, -17, 9);
-Map.addLayer(farm_plots_vis, null, 'Farm plots fixed locations by year');
+Map.addLayer(farm_plots_vis, null, 'Farm plots fixed by year');

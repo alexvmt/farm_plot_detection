@@ -24,10 +24,10 @@ function maskS2clouds(image) {
 
 // Sample region Sioma
 var roi = ee.Geometry.Polygon(
-	[[[23.533067806079163, -16.640625018221357],
-	[23.533067806079163, -16.686260604618802],
-	[23.61452112944342, -16.686260604618802],
-	[23.61452112944342, -16.640625018221357]]], null, false);
+	[[[23.52, -16.64],
+	[23.52, -16.69],
+	[23.61, -16.69],
+	[23.61, -16.64]]], null, false);
 
 var s2_image = ee.ImageCollection('COPERNICUS/S2_SR')
 	// Set date range
