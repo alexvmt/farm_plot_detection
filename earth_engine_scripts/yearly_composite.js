@@ -18,6 +18,12 @@ function maskS2clouds(image) {
 	return image.updateMask(mask).divide(10000);
 	};
 
+var roi = ee.Geometry.Polygon(
+	[[[23.53433995098646, -16.638721269184682],
+		  [23.53433995098646, -16.685015046593627],
+		  [23.603948639340953, -16.685015046593627],
+		  [23.603948639340953, -16.638721269184682]]], null, false);
+
 var s2_image = ee.ImageCollection('COPERNICUS/S2_SR')
 	// Set date range
 	.filterDate('2020-01-01', '2020-12-31')
@@ -26,7 +32,9 @@ var s2_image = ee.ImageCollection('COPERNICUS/S2_SR')
 	// Apply cloud mask
 	.map(maskS2clouds)
 	// Compute mean
-	.mean();
+	.mean()
+	// Clip roi
+	.clip(roi);
 
 // Set visualization parameters
 var vis_params = {
