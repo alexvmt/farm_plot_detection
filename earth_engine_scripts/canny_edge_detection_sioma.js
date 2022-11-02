@@ -2,10 +2,10 @@
 
 // Select region of interest: Sioma
 var roi = ee.Geometry.Polygon(
-	[[[23.52, -16.64],
-	[23.52, -16.69],
-	[23.61, -16.69],
-	[23.61, -16.64]]], null, false);
+	[[[23.53433995098646, -16.638721269184682],
+		  [23.53433995098646, -16.685015046593627],
+		  [23.603948639340953, -16.685015046593627],
+		  [23.603948639340953, -16.638721269184682]]], null, false);
 
 // Select Sentinel-2 image
 var s2_image = ee.Image(ee.ImageCollection('COPERNICUS/S2_SR')

@@ -20,10 +20,10 @@ function maskS2clouds(image) {
 
 // Sample region Sioma rectangle
 var roi = ee.Geometry.Polygon(
-	[[[23.52, -16.64],
-	[23.52, -16.69],
-	[23.61, -16.69],
-	[23.61, -16.64]]], null, false);
+	[[[23.53433995098646, -16.638721269184682],
+		  [23.53433995098646, -16.685015046593627],
+		  [23.603948639340953, -16.685015046593627],
+		  [23.603948639340953, -16.638721269184682]]], null, false);
 
 var s2_image = ee.ImageCollection('COPERNICUS/S2_SR')
 	// Set date range
@@ -49,7 +49,7 @@ Map.centerObject(roi, 12);
 Map.addLayer(s2_image, vis_params, 'RGB');
 
 // Export image to Drive
-Export.image.toDrive({
+/*Export.image.toDrive({
 	image: s2_image,
 	description: 'sample_region_sioma_april_2020',
 	folder: 'farm_plot_detection',
@@ -57,4 +57,22 @@ Export.image.toDrive({
 	scale: 10,
 	maxPixels: 1e13,
 	fileFormat: 'GeoTIFF'
+	});*/
+
+var image_export_options = {
+    'patchDimensions': [256, 256],
+    'maxFileSize': 104857600,
+    'compressed': 'True'
+    }
+
+// Export image to Drive
+Export.image.toDrive({
+	image: s2_image,
+	description: 'sample_region_sioma_april_2020',
+	folder: 'farm_plot_detection',
+	region: roi,
+	scale: 10,
+	maxPixels: 1e13,
+	fileFormat: 'TFRecord',
+	formatOptions: image_export_options
 	});
