@@ -37,15 +37,15 @@ The following images show Sentinel-2 RGB composites at different temporal resolu
 
 ### Yearly resolution
 
-![Sample Region Sioma Yearly Composite](visualizations/sample_region_sioma_yearly_composite.png 'Sample Region Sioma Yearly Composite')
+![yearly composite sioma](visualizations/yearly_composite_sioma.png 'yearly composite sioma')
 
 ### Quarterly resolution
 
-![Sample Region Sioma Quarterly Composite](visualizations/sample_region_sioma_quarterly_composite.png 'Sample Region Sioma Quarterly Composite')
+![quarterly composite sioma](visualizations/quarterly_composite_sioma.png 'quarterly composite sioma')
 
 ### Monthly resolution
 
-![Sample Region Sioma Monthly Composite](visualizations/sample_region_sioma_monthly_composite.png 'Sample Region Sioma Monthly Composite')
+![monthly composite sioma](visualizations/monthly_composite_sioma.png 'monthly composite sioma')
 
 It is evident that the area is subject to significant variations throughout the seasons of a given year.
 February seems to be rather clouldy.
@@ -71,18 +71,25 @@ The data for the vegetation and water classes consist of hand-drawn points while
 
 ### Random forest
 
-![Classification Sioma using hand-drawn points](visualizations/classification_sioma_using_hand_drawn_points.png 'Classification Sioma using hand-drawn points')
+#### Points
 
-While the classification of vegetation and water seems to show decent results using random forest, it is quite obvious that the same doesn't apply to farm plots.
+![random forest sioma points](visualizations/random_forest_sioma_points.png 'random forest sioma points')
+
+#### Polygons
+
+![random forest sioma polygons](visualizations/random_forest_sioma_polygons.png 'random forest sioma polygons')
+
+Using the points over the polygons dataset seems to yield better results.
+While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots.
 Some farm plot pixels are correctly classified but bare soil, settlement areas and roads for example are also classified as farm plots.
 
-### Neural net with 3 hidden layers
+### Neural net with 3 hidden layers using the points dataset
 
-![Sioma Classification Neural Net](visualizations/sioma_classification_neural_net.png 'Sioma Classification Neural Net')
+![neural net sioma points](visualizations/neural_net_sioma_points.png 'neural net sioma points')
 
-Using a more complex model, namely a neural net with 3 hidden layers, yields a better classification result.
-The classified image can be further explored in a split panel in Earth Engine using [this](https://code.earthengine.google.com/8c8143278fec66f262ff87e0469cdab8) link to the Code Editor.
-However, the issue of distinguishing farm plots, bare soil, settlements and roads remains overall.
+Using a more complex model, namely a neural net with 3 hidden layers, doesn't seem to yield significantly better classification results.
+The classified image can be further explored in a split panel in Earth Engine using [this](https://code.earthengine.google.com/e6330a14c56f93e9a8fb88d74b7ad726) link to the Code Editor.
+The issue of distinguishing farm plots, bare soil, settlements and roads remains.
 Other landcover classes containing bare soil and human-influenced structures like settlements and roads could be helpful (e. g. KAZA Landcover 2020).
 Instance segmentation, considering the shape of objects, or leveraging the fact that a farm plot pixel looks differently throughout the year could also be more promising paths.
 
@@ -95,10 +102,10 @@ Instance segmentation, considering the shape of objects, or leveraging the fact 
 NASA Harvest's OpenMapFlow takes into account that pixel values change throughout the year, uses more than just RGB bands and Sentinel-2 data and applies a pre-trained deep learning model,
 that can be tuned using data from the respective region of interest, resulting in superior predictive performance compared to using data containing a single timestep.
 
-![Crop Probability Map Sioma](visualizations/crop_probability_map_sioma.png 'Crop Probability Map Sioma')
+![openmapflow sioma example](visualizations/openmapflow_sioma_example.png 'openmapflow sioma example')
 
 The exemplary crop probability map above does not yet include any KAZA data but is created on the ground of data that comes with OpenMapFlow.
-The map can be further explored in Earth Engine using [this](https://code.earthengine.google.com/27b9028bf982e8cd50f986c4d4002d24) link to the Code Editor.
+The map can be further explored in Earth Engine using [this](https://code.earthengine.google.com/d8d5ea0d782499eb0cc5fd89df9fd91e) link to the Code Editor.
 
 
 
