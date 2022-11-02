@@ -95,17 +95,20 @@ Instance segmentation, considering the shape of objects, or leveraging the fact 
 
 
 
-## Cropland classification using KAZA Landcover 2020 dataset
+## Cropland classification using OpenMapFlow
 
-### Exemplary 2020 crop probability map for Sioma using [NASA Harvest's OpenMapFlow](https://github.com/nasaharvest/openmapflow)
+[NASA Harvest's OpenMapFlow](https://github.com/nasaharvest/openmapflow) takes into account that pixel values change throughout the year, uses more than just RGB bands and Sentinel-2 data and applies a pre-trained deep learning model, that can be tuned using data from the respective region of interest, resulting in superior predictive performance compared to using data containing a single timestep.
 
-NASA Harvest's OpenMapFlow takes into account that pixel values change throughout the year, uses more than just RGB bands and Sentinel-2 data and applies a pre-trained deep learning model,
-that can be tuned using data from the respective region of interest, resulting in superior predictive performance compared to using data containing a single timestep.
+### Exemplary 2020 crop probability map
 
-![openmapflow sioma example](visualizations/openmapflow_sioma_example.png 'openmapflow sioma example')
+![crop probability map sioma](visualizations/crop_probability_map_sioma.png 'crop probability map sioma')
 
-The exemplary crop probability map above does not yet include any KAZA data but is created on the ground of data that comes with OpenMapFlow.
-The map can be further explored in Earth Engine using [this](https://code.earthengine.google.com/d8d5ea0d782499eb0cc5fd89df9fd91e) link to the Code Editor.
+### Exemplary 2020 crop map
+
+![crop map sioma](visualizations/crop_map_sioma.png 'crop map sioma')
+
+The model used to create the exemplary maps above doesn't yet include any KAZA data but is created on the ground of data that comes with OpenMapFlow.
+The maps can be further explored in Earth Engine using [this](https://code.earthengine.google.com/d8d5ea0d782499eb0cc5fd89df9fd91e) link to the Code Editor.
 
 
 

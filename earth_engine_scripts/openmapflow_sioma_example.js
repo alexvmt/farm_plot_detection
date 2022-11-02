@@ -18,10 +18,14 @@ function maskS2clouds(image) {
 	return image.updateMask(mask).divide(10000);
 	};
 
-
+// Select region of interest: Sioma
+var roi = ee.Geometry.Polygon(
+	[[[23.53433995098646, -16.638721269184682],
+		  [23.53433995098646, -16.685015046593627],
+		  [23.603948639340953, -16.685015046593627],
+		  [23.603948639340953, -16.638721269184682]]], null, false);
 
 // Sentinel-2 mean composite April 2020
-
 var s2_image = ee.ImageCollection('COPERNICUS/S2_SR')
 	// Set date range according to selected year below
 	.filterDate('2020-04-01', '2020-04-30')
@@ -38,33 +42,13 @@ var vis_params = {
 	bands: ['B4', 'B3', 'B2']
 	};
 
-
-
-// Farm plot polygons 2020
-
-var farm_plots = ee.FeatureCollection('projects/ee-alexvmt/assets/farm_plots_fixed')
-	// Filter year according to selected date range above
-	.filter('year == 2020');
-
-var farm_plots_vis = farm_plots.style({
-	color: 'FF000088',
-	fillColor: '00000000'
-	});
-
-
-
 // Prediction 2020
-
 var image = ee.Image('users/alexvmt/openmapflow_sioma_example');
 var palettes = require('users/gena/packages:palettes');
 var palette = palettes.cmocean.Speed[7];
 
-
-
 // Mapping
-
 Map.setCenter(23.571, -16.669, 14);
-Map.addLayer(s2_image, vis_params, 'Sentinel-2 RGB');
-Map.addLayer(image.gt(0.5), {min: 0, max: 1.0, palette: palette.slice(0,-2)}, 'Mask');
-Map.addLayer(image, {min: 0, max: 1.0, palette: palette}, 'Map');
-Map.addLayer(farm_plots_vis, null, 'Farm plots');
+Map.addLayer(s2_image.clip(roi), vis_params, 'Sentinel-2 RGB');
+Map.addLayer(image.clip(roi).gt(0.5), {min: 0, max: 1.0, palette: palette.slice(0,-2)}, 'Mask');
+Map.addLayer(image.clip(roi), {min: 0, max: 1.0, palette: palette}, 'Map');
