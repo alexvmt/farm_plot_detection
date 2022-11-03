@@ -103,7 +103,7 @@ Instance segmentation, considering the shape of objects, or leveraging the fact 
 
 A random forest classifier is applied test-wise to one of the 6 Bengo regions, Sichifulo, to verify the validity of the sampled points and the resulting classification.
 
-![random forest kaza bengo crop 2020 sichifulo](visualizations/random_forest_kaza_bengo_crop_2020_sichifulo.png 'random forest kaza bengo crop 2020 sichifulo)
+![random forest kaza bengo crop 2020 sichifulo](visualizations/random_forest_kaza_bengo_crop_2020_sichifulo.png 'random forest kaza bengo crop 2020 sichifulo')
 
 ### OpenMapFlow
 
