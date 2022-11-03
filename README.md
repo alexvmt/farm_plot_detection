@@ -9,23 +9,23 @@ There are two datasets to explore.
 First, there is a dataset collected during a WWF field campaign, consisting of point coordinates that mark farm plots and spanning the period from 2017 to 2020.
 These point coordinates have been used by WWF as the basis for manually drawing farm plot polygons using Google Earth in 2022.
 [This](https://github.com/alexvmt/farm_plot_detection/blob/main/exploring_farm_plot_polygons_and_points.ipynb) notebook describes and explores the field campaign data in detail.
-Second, there is the [KAZA Landcover 2020](https://space-science.wwf.de/KAZAlandcover/) dataset by WWF, constituting a landcover map for the entire KAZA complex with 18 distinct landcover classes, including cropland.
-The data can be downloaded [here](https://panda.maps.arcgis.com/home/item.html?id=0bd9f1902e4c4b9389d8c1f473c76d04), including a link to the technical report that describes the dataset and its creation in detail.
+Second, there is the [KAZA landcover](https://space-science.wwf.de/KAZAlandcover/) dataset by WWF, constituting a landcover map for the entire KAZA complex
+based on 2020 data and with 18 distinct landcover classes, including cropland.
+The data can be downloaded [here](https://panda.maps.arcgis.com/home/item.html?id=0bd9f1902e4c4b9389d8c1f473c76d04),
+including a link to the technical report that describes the dataset and its creation in detail.
 
 To do
 
-- finalize sampling from KAZA Landcover 2020
-- test random forest and neural net using data sampled from KAZA Landcover 2020
-- feed data sampled from KAZA Landcover 2020 into OpenMapFlow
-- create crop probability maps for 6 Bengo regions of interest for 2020 and 2021
-
-
+- finalize sampling from KAZA landcover
+- test random forest and neural net using data sampled from KAZA landcover
+- feed data sampled from KAZA landcover into OpenMapFlow
+- create crop (probability) maps for 6 Bengo regions of interest for 2020 and 2021
 
 **Contents**
 
 - [What does the region look like from space anyway?](#what-does-the-region-look-like-from-space-anyway)
-- [Cropland classification using field campaign dataset](#cropland-classification-using-field-campaign-dataset)
-- [Cropland classification using KAZA Landcover 2020 dataset](#cropland-classification-using-KAZA-Landcover-2020-dataset)
+- [Field campaign dataset](#field-campaign-dataset)
+- [KAZA landcover dataset](#kaza-landcover-dataset)
 - [Requirements](#requirements)
 - [References and further information](#references-and-further-information)
 
@@ -33,7 +33,7 @@ To do
 
 ## What does the region look like from space anyway?
 
-The following images show Sentinel-2 RGB composites at different temporal resolutions for the sample region of Sioma in 2020, created using Google Earth Engine.
+The following images show Sentinel-2 RGB mean composites at different temporal resolutions for the sample region of Sioma in 2020, created using Google Earth Engine.
 
 ### Yearly resolution
 
@@ -57,9 +57,9 @@ The harvest takes place in April/May.
 
 
 
-## Cropland classification using field campaign dataset
+## Field campaign dataset
 
-The models are trained and applied to the sample region of Sioma, using Google Earth Engine.
+The used models are trained and applied to the sample region of Sioma, using Google Earth Engine.
 
 The used landcover classes include:
 
@@ -67,15 +67,15 @@ The used landcover classes include:
 - Blue: water
 - Yellow: farm_plots
 
-The data for the vegetation and water classes consist of hand-drawn points while the farm_plots class represents the point coordinates from the mentioned field campaign dataset.
+The data for the vegetation and water classes consist of hand-drawn points while the farm_plots class represents the point coordinates/polygons from the field campaign dataset mentioned above.
 
 ### Random forest
 
-#### Points
+#### Using the points dataset
 
 ![random forest sioma points](visualizations/random_forest_sioma_points.png 'random forest sioma points')
 
-#### Polygons
+#### Using the polygons dataset
 
 ![random forest sioma polygons](visualizations/random_forest_sioma_polygons.png 'random forest sioma polygons')
 
@@ -83,7 +83,7 @@ Using the points over the polygons dataset seems to yield better results.
 While the classification of vegetation and water seems to show decent results, it is quite obvious that the same doesn't apply to farm plots.
 Some farm plot pixels are correctly classified but bare soil, settlement areas and roads for example are also classified as farm plots.
 
-### Neural net with 3 hidden layers using the points dataset
+### Neural net using the points dataset
 
 ![neural net sioma points](visualizations/neural_net_sioma_points.png 'neural net sioma points')
 
@@ -95,20 +95,34 @@ Instance segmentation, considering the shape of objects, or leveraging the fact 
 
 
 
-## Cropland classification using OpenMapFlow
+## KAZA landcover dataset
 
-[NASA Harvest's OpenMapFlow](https://github.com/nasaharvest/openmapflow) takes into account that pixel values change throughout the year, uses more than just RGB bands and Sentinel-2 data and applies a pre-trained deep learning model, that can be tuned using data from the respective region of interest, resulting in superior predictive performance compared to using data containing a single timestep.
+[This](https://github.com/alexvmt/farm_plot_detection/blob/main/sample_points_from_kaza_landcover_2020.ipynb) notebook is used to sample crop and non-crop points from the KAZA landcover datset.
 
-### Exemplary 2020 crop probability map
+### Random forest
+
+A random forest classifier is applied test-wise to one of the 6 Bengo regions, Sichifulo, to verify the validity of the sampled points and the resulting classification.
+
+![random forest kaza bengo crop 2020 sichifulo](visualizations/random_forest_kaza_bengo_crop_2020_sichifulo.png 'random forest kaza bengo crop 2020 sichifulo)
+
+### OpenMapFlow
+
+[NASA Harvest's OpenMapFlow](https://github.com/nasaharvest/openmapflow) takes into account that pixel values change throughout the year, uses more than just RGB bands
+and Sentinel-2 data and applies a pre-trained deep learning model, that can be tuned using data from the respective region of interest,
+resulting in superior predictive performance compared to using data containing a single timestep.
+
+#### Exemplary 2020 crop probability map (Sioma)
 
 ![crop probability map sioma](visualizations/crop_probability_map_sioma.png 'crop probability map sioma')
 
-### Exemplary 2020 crop map
+#### Exemplary 2020 crop map (Sioma)
 
 ![crop map sioma](visualizations/crop_map_sioma.png 'crop map sioma')
 
-The model used to create the exemplary maps above doesn't yet include any KAZA data but is created on the ground of data that comes with OpenMapFlow.
+The model used to create the exemplary maps for the sample region of Sioma above doesn't yet include any KAZA data but is created on the ground of data that comes with OpenMapFlow.
 The maps can be further explored in Earth Engine using [this](https://code.earthengine.google.com/d8d5ea0d782499eb0cc5fd89df9fd91e) link to the Code Editor.
+In a next step, crop and non-crop points sampled from the KAZA Landcover dataset are to be used to fine-tune the model to the KAZA region.
+Then, crop (probability) maps for the 6 Bengo regions for 2020 and 2021 can be created.
 
 
 
