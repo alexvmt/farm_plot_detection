@@ -18,11 +18,19 @@ function maskS2clouds(image) {
 	return image.updateMask(mask).divide(10000);
 	};
 
-// KAZA Bengo Crop 2020
-var kaza_bengo_crop_2020 = ee.FeatureCollection("projects/ee-alexvmt/assets/kaza_bengo_crop_2020");
+// Select dataset
+var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_random_2000');
+//var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_uniform_2000');
+//var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_random_20000');
+//var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_uniform_20000');
 
-// Region of interest
+// Select region of interest
+//var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Binga');
+//var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Hwange');
+//var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Mufunta');
+//var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Mulobesi');
 var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Sichifulo');
+//var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Zambezi');
 
 // Get points within roi
 var points = kaza_bengo_crop_2020.filterBounds(roi)
@@ -42,7 +50,7 @@ var addNDVI = function(image) {
 	return image.addBands(ndvi);
 	};
 
-// Apply NDVI function to image and calculate mean
+// Apply NDVI function to images and calculate mean
 var s2_image = s2_images
 	.map(addNDVI)
 	.mean();
