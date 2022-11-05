@@ -102,7 +102,7 @@ Instance segmentation, considering the shape of objects, or leveraging the fact 
 ### Random forest
 
 A random forest classifier is applied test-wise to one of the 6 Bengo regions, Sichifulo, to verify the validity of the sampled points and the resulting classification.
-The dataset used consits of 2000 randomly sampled crop and non-crop points (1000 points per class).
+The dataset used consists of 2000 randomly sampled crop and non-crop points (1000 points per class).
 Train accuracy is 94%, test accuracy is 78%.
 
 ![random forest kaza bengo crop 2020 sichifulo](visualizations/random_forest_kaza_bengo_crop_2020_sichifulo.png 'random forest kaza bengo crop 2020 sichifulo')
