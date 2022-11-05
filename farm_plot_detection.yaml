@@ -11,3 +11,5 @@ dependencies:
   - folium
   - ipywidgets
   - jupyterlab
+  - rasterio
+  - shapely
