@@ -136,8 +136,18 @@ Four different balanced datasets are evaluated. A Sentinel-2 cloud-masked mean c
 | Uniform       | 20000       | All       | 79090.8     | 1        | 0.96           | 0.74          |
 
 Finally, a crop map is created for the 6 Bengo regions, using the dataset containing 20000 randomly sampled points.
+The class distribution in the used dataset is also shown as a reference.
 
-![random forest kaza bengo crop 2020 random 20000](visualizations/random_forest_kaza_bengo_crop_2020_random_20000.png 'random forest kaza bengo crop 2020 random 20000')
+<table>
+	<tr>
+		<th>Class distribution in used dataset</th>
+		<th>Classification</th>
+	</tr>
+	<tr>
+		<td> <img src="visualizations/class_distribution_kaza_bengo_crop_2020_random_20000.png" style="max-width:100%;height:auto" /> </td>
+		<td> <img src="visualizations/random_forest_kaza_bengo_crop_2020_random_20000.png" style="max-width:100%;height:auto" /> </td>
+	</tr>
+</table>
 
 ### OpenMapFlow
 
