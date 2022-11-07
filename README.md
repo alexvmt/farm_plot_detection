@@ -102,7 +102,9 @@ Instance segmentation, considering the shape of objects, or leveraging the fact 
 ### Random forest
 
 A random forest classifier is applied to each one of the 6 Bengo regions and also to all of them at once to verify the validity of the sampled points and the resulting classification.
-Four different balanced datasets are evaluated. A Sentinel-2 cloud-masked mean composite from April 2020 is used as the input image.
+Four different balanced datasets are evaluated.
+A Sentinel-2 cloud-masked mean composite from April 2020 is used as the input image.
+The features used are the bands B2, B3, B4 and B8 and also NDVI.
 
 | Sampling mode | Sample size | Region    | Train accuracy | Test accuracy |
 |---------------|-------------|-----------|----------------|---------------|
