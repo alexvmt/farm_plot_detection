@@ -18,8 +18,10 @@ function maskS2clouds(image) {
 	return image.updateMask(mask).divide(10000);
 	};
 
+// Load dataset
 var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_random_20000');
 
+// Load regions of interest
 var binga = ee.FeatureCollection('projects/ee-alexvmt/assets/Binga');
 var hwange = ee.FeatureCollection('projects/ee-alexvmt/assets/Hwange');
 var mufunta = ee.FeatureCollection('projects/ee-alexvmt/assets/Mufunta');
@@ -27,12 +29,14 @@ var mulobesi = ee.FeatureCollection('projects/ee-alexvmt/assets/Mulobesi');
 var sichifulo = ee.FeatureCollection('projects/ee-alexvmt/assets/Sichifulo');
 var zambezi = ee.FeatureCollection('projects/ee-alexvmt/assets/Zambezi');
 
+// Union regions of interest
 var roi = binga.geometry().union(hwange.geometry());
 var roi = roi.union(mufunta.geometry());
 var roi = roi.union(mulobesi.geometry());
 var roi = roi.union(sichifulo.geometry());
 var roi = roi.union(zambezi.geometry());
 
+// Split crop and non-crop points
 var crop = kaza_bengo_crop_2020.filter('crop == 1');
 var non_crop = kaza_bengo_crop_2020.filter('crop == 0');
 
@@ -48,7 +52,6 @@ var s2_image = ee.ImageCollection('COPERNICUS/S2_SR')
 	.mean();
 
 // Get roi bounding box
-//var bounding_box = roi.geometry().bounds();
 var bounding_box = roi.bounds();
 
 // Return list of coordinates
@@ -79,6 +82,5 @@ var vis_params = {
 
 Map.centerObject(roi);
 Map.addLayer(s2_image.clip(box_buffered), vis_params, 'RGB');
-Map.addLayer(non_crop, {'color': 'beige'}, 'Non-crop');
-Map.addLayer(crop, {'color': 'green'}, 'Crop');
-  
+Map.addLayer(non_crop.draw({color: 'beige', pointRadius: 3, strokeWidth: 2}), {}, 'Non-crop');
+Map.addLayer(crop.draw({color: 'green', pointRadius: 1, strokeWidth: 1}), {}, 'Crop');

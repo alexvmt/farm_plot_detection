@@ -97,43 +97,43 @@ Instance segmentation, considering the shape of objects, or leveraging the fact 
 
 ## KAZA landcover dataset
 
-[This](https://github.com/alexvmt/farm_plot_detection/blob/main/sample_points_from_kaza_landcover_2020.ipynb) notebook is used to sample crop and non-crop points from the KAZA landcover datset.
+[This](https://github.com/alexvmt/farm_plot_detection/blob/main/sample_points_from_kaza_landcover_2020.ipynb) notebook is used to sample crop and non-crop points from the KAZA landcover dataset.
 
 ### Random forest
 
 A random forest classifier is applied to each one of the 6 Bengo regions and also to all of them at once to verify the validity of the sampled points and the resulting classification.
 Four different balanced datasets are evaluated. A Sentinel-2 cloud-masked mean composite from April 2020 is used as the input image.
 
-| Sampling mode | Sample size | Region    | Area (km²) | Area (%) | Train accuracy | Test accuracy |
-|---------------|-------------|-----------|-------------|----------|----------------|---------------|
-| Random        | 2000        | Binga     | 14794       | 0.187051 | 0.96           | 0.82          |
-| Random        | 2000        | Hwange    | 30607.3     | 0.386989 | 0.95           | 0.66          |
-| Random        | 2000        | Mufunta   | 6938.41     | 0.087727 | 0.96           | 0.73          |
-| Random        | 2000        | Mulobesi  | 3918.62     | 0.049546 | 0.98           | 0.94          |
-| Random        | 2000        | Sichifulo | 3893.37     | 0.049227 | 0.94           | 0.78          |
-| Random        | 2000        | Zambezi   | 18939.1     | 0.23946  | 0.95           | 0.65          |
-| Uniform       | 2000        | Binga     | 14794       | 0.187051 | 0.93           | 0.75          |
-| Uniform       | 2000        | Hwange    | 30607.3     | 0.386989 | 0.96           | 0.75          |
-| Uniform       | 2000        | Mufunta   | 6938.41     | 0.087727 | 0.94           | 0.75          |
-| Uniform       | 2000        | Mulobesi  | 3918.62     | 0.049546 | 0.92           | 0.61          |
-| Uniform       | 2000        | Sichifulo | 3893.37     | 0.049227 | 0.97           | 0.88          |
-| Uniform       | 2000        | Zambezi   | 18939.1     | 0.23946  | 0.96           | 0.71          |
-| Random        | 20000       | Binga     | 14794       | 0.187051 | 0.95           | 0.78          |
-| Random        | 20000       | Hwange    | 30607.3     | 0.386989 | 0.95           | 0.78          |
-| Random        | 20000       | Mufunta   | 6938.41     | 0.087727 | 0.96           | 0.81          |
-| Random        | 20000       | Mulobesi  | 3918.62     | 0.049546 | 0.97           | 0.82          |
-| Random        | 20000       | Sichifulo | 3893.37     | 0.049227 | 0.96           | 0.85          |
-| Random        | 20000       | Zambezi   | 18939.1     | 0.23946  | 0.94           | 0.72          |
-| Uniform       | 20000       | Binga     | 14794       | 0.187051 | 0.96           | 0.74          |
-| Uniform       | 20000       | Hwange    | 30607.3     | 0.386989 | 0.96           | 0.8           |
-| Uniform       | 20000       | Mufunta   | 6938.41     | 0.087727 | 0.96           | 0.74          |
-| Uniform       | 20000       | Mulobesi  | 3918.62     | 0.049546 | 0.96           | 0.77          |
-| Uniform       | 20000       | Sichifulo | 3893.37     | 0.049227 | 0.96           | 0.8           |
-| Uniform       | 20000       | Zambezi   | 18939.1     | 0.23946  | 0.95           | 0.71          |
-| Random        | 2000        | All       | 79090.8     | 1        | 0.96           | 0.68          |
-| Uniform       | 2000        | All       | 79090.8     | 1        | 0.95           | 0.7           |
-| Random        | 20000       | All       | 79090.8     | 1        | 0.95           | 0.74          |
-| Uniform       | 20000       | All       | 79090.8     | 1        | 0.96           | 0.74          |
+| Sampling mode | Sample size | Region    | Train accuracy | Test accuracy |
+|---------------|-------------|-----------|----------------|---------------|
+| Random        | 2000        | Binga     | 0.96           | 0.82          |
+| Random        | 2000        | Hwange    | 0.95           | 0.66          |
+| Random        | 2000        | Mufunta   | 0.96           | 0.73          |
+| Random        | 2000        | Mulobesi  | 0.98           | 0.94          |
+| Random        | 2000        | Sichifulo | 0.94           | 0.78          |
+| Random        | 2000        | Zambezi   | 0.95           | 0.65          |
+| Uniform       | 2000        | Binga     | 0.93           | 0.75          |
+| Uniform       | 2000        | Hwange    | 0.96           | 0.75          |
+| Uniform       | 2000        | Mufunta   | 0.94           | 0.75          |
+| Uniform       | 2000        | Mulobesi  | 0.92           | 0.61          |
+| Uniform       | 2000        | Sichifulo | 0.97           | 0.88          |
+| Uniform       | 2000        | Zambezi   | 0.96           | 0.71          |
+| Random        | 20000       | Binga     | 0.95           | 0.78          |
+| Random        | 20000       | Hwange    | 0.95           | 0.78          |
+| Random        | 20000       | Mufunta   | 0.96           | 0.81          |
+| Random        | 20000       | Mulobesi  | 0.97           | 0.82          |
+| Random        | 20000       | Sichifulo | 0.96           | 0.85          |
+| Random        | 20000       | Zambezi   | 0.94           | 0.72          |
+| Uniform       | 20000       | Binga     | 0.96           | 0.74          |
+| Uniform       | 20000       | Hwange    | 0.96           | 0.8           |
+| Uniform       | 20000       | Mufunta   | 0.96           | 0.74          |
+| Uniform       | 20000       | Mulobesi  | 0.96           | 0.77          |
+| Uniform       | 20000       | Sichifulo | 0.96           | 0.8           |
+| Uniform       | 20000       | Zambezi   | 0.95           | 0.71          |
+| Random        | 2000        | All       | 0.96           | 0.68          |
+| Uniform       | 2000        | All       | 0.95           | 0.7           |
+| Random        | 20000       | All       | 0.95           | 0.74          |
+| Uniform       | 20000       | All       | 0.96           | 0.74          |
 
 Finally, a crop map is created for the 6 Bengo regions, using the dataset containing 20000 randomly sampled points.
 The class distribution in the used dataset is also shown as a reference.
@@ -141,7 +141,7 @@ The class distribution in the used dataset is also shown as a reference.
 <table>
 	<tr>
 		<th>Class distribution in used dataset</th>
-		<th>Classification</th>
+		<th>Class distribution in predicted crop map</th>
 	</tr>
 	<tr>
 		<td> <img src="visualizations/class_distribution_kaza_bengo_crop_2020_random_20000.png" style="max-width:100%;height:auto" /> </td>
