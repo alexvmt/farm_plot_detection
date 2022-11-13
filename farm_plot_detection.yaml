@@ -9,6 +9,7 @@ dependencies:
   - matplotlib
   - seaborn
   - geopandas
+  - pygeos
   - folium
   - ipywidgets
   - jupyterlab
