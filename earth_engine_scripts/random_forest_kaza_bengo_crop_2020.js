@@ -48,7 +48,7 @@ var roi = roi.union(sichifulo.geometry());
 var roi = roi.union(zambezi.geometry());
 
 // Get points within roi
-var points = kaza_bengo_crop_2020.filterBounds(roi)
+var points = kaza_bengo_crop_2020.filterBounds(roi);
 
 // Select Sentinel-2 images
 var s2_images = ee.ImageCollection('COPERNICUS/S2_SR')
