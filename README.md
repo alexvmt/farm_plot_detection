@@ -14,18 +14,13 @@ based on 2020 data and with 18 distinct landcover classes, including cropland.
 The data can be downloaded [here](https://panda.maps.arcgis.com/home/item.html?id=0bd9f1902e4c4b9389d8c1f473c76d04),
 including a link to the technical report that describes the dataset and its creation in detail.
 
-To do
-
-- finalize sampling from KAZA landcover
-- test random forest and neural net using data sampled from KAZA landcover
-- feed data sampled from KAZA landcover into OpenMapFlow
-- create crop (probability) maps for 6 Bengo regions of interest for 2020 and 2021
+It is of particular relevance to create crop maps for the 6 Bengo regions within KAZA.
 
 **Contents**
 
 - [What does the region look like from space anyway?](#what-does-the-region-look-like-from-space-anyway)
-- [Field campaign dataset](#field-campaign-dataset)
-- [KAZA landcover dataset](#kaza-landcover-dataset)
+- [Cropland mapping using field campaign dataset](#cropland-mapping-using-field-campaign-dataset)
+- [Cropland mapping using KAZA landcover dataset](#cropland-mapping-using-kaza-landcover-dataset)
 - [Requirements](#requirements)
 - [References and further information](#references-and-further-information)
 
@@ -57,7 +52,7 @@ The harvest takes place in April/May.
 
 
 
-## Field campaign dataset
+## Cropland mapping using field campaign dataset
 
 The used models are trained and applied to the sample region of Sioma, using Google Earth Engine.
 
@@ -95,7 +90,7 @@ Instance segmentation, considering the shape of objects, or leveraging the fact 
 
 
 
-## KAZA landcover dataset
+## Cropland mapping using KAZA landcover dataset
 
 [This](https://github.com/alexvmt/farm_plot_detection/blob/main/sample_points_from_kaza_landcover_2020.ipynb) notebook is used to sample crop and non-crop points from the KAZA landcover dataset.
 
@@ -157,18 +152,22 @@ The class distribution in the used dataset is also shown as a reference.
 and Sentinel-2 data and applies a pre-trained deep learning model, that can be tuned using data from the respective region of interest,
 resulting in superior predictive performance compared to using data containing a single timestep.
 
-#### Exemplary 2020 crop probability map (Sioma)
+The model used to create the exemplary maps below includes 2000 randomly sampled points from the KAZA landcover dataset (and data from the GeowikiLandcover 2017 dataset).
+The maps have been created using [this](https://github.com/alexvmt/farm_plot_detection/blob/main/create_maps_for_small_regions.ipynb) notebook
+(using data exported via Earth Engine and stored in a Google Cloud bucket)
+They can be further explored in Earth Engine using [this](https://code.earthengine.google.com/ce46260d6860db9667aaa2169fc7174a) link to the Code Editor.
+The classification threshold is currently set to 0.5 but should be optimized to create the best possible crop masks.
 
-![crop probability map sioma](visualizations/crop_probability_map_sioma.png 'crop probability map sioma')
+#### Exemplary 2020 crop probability map (Zambia)
 
-#### Exemplary 2020 crop map (Sioma)
+![zam sites bengo crop probability map 2020 example](visualizations/zam_sites_bengo_crop_probability_map_2020_example.png 'zam sites bengo crop probability map 2020 example')
 
-![crop map sioma](visualizations/crop_map_sioma.png 'crop map sioma')
+#### Exemplary 2020 crop mask (Zambia)
 
-The model used to create the exemplary maps for the sample region of Sioma above doesn't yet include any KAZA data but is created on the ground of data that comes with OpenMapFlow.
-The maps can be further explored in Earth Engine using [this](https://code.earthengine.google.com/d8d5ea0d782499eb0cc5fd89df9fd91e) link to the Code Editor.
-In a next step, crop and non-crop points sampled from the KAZA Landcover dataset are to be used to fine-tune the model to the KAZA region.
-Then, crop (probability) maps for the 6 Bengo regions for 2020 and 2021 can be created.
+![zam sites bengo crop mask 2020 example](visualizations/zam_sites_bengo_crop_mask_2020_example.png 'zam sites bengo crop mask 2020 example')
+
+The model can be applied to all 6 Bengo regions to create crop maps for 2020 and 2021 if it is satisfactory with regard to performance and map quality.
+Maps for small regions can be created locally or in Google Colab but Google Cloud should be used to create large-scale maps.
 
 
 
@@ -179,7 +178,7 @@ Assuming `conda` is installed, do the following to run the notebooks:
 - create environment: `conda env create --file=farm_plot_detection.yaml`
 - activate environment: `conda activate farm_plot_detection`
 
-The Earth Engine Python API notebooks are best run directly in Google Colab.
+The Earth Engine Python API notebooks and the notebook to create maps for small regions are best run directly in Google Colab.
 
 
 
