@@ -18,13 +18,13 @@ function maskS2clouds(image) {
 	return image.updateMask(mask).divide(10000);
 	};
 
-// Load dataset (pick one, copy out the others)
+// Load dataset (pick one, comment out the others)
 //var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_random_2000');
 //var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_uniform_2000');
 var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_random_20000');
 //var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_uniform_20000');
 
-// Load region of interest (make sure to copy out lines 36 to 48, if you pick one of the six regions of interest right below)
+// Load individual region of interest (make sure to comment out lines 36 to 48, if you pick one of the six regions of interest right below)
 //var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Binga');
 //var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Hwange');
 //var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Mufunta');
@@ -32,7 +32,7 @@ var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza
 //var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Sichifulo');
 //var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Zambezi');
 
-// Load regions of interest
+// Load all regions of interest
 var binga = ee.FeatureCollection('projects/ee-alexvmt/assets/Binga');
 var hwange = ee.FeatureCollection('projects/ee-alexvmt/assets/Hwange');
 var mufunta = ee.FeatureCollection('projects/ee-alexvmt/assets/Mufunta');
@@ -40,7 +40,7 @@ var mulobesi = ee.FeatureCollection('projects/ee-alexvmt/assets/Mulobesi');
 var sichifulo = ee.FeatureCollection('projects/ee-alexvmt/assets/Sichifulo');
 var zambezi = ee.FeatureCollection('projects/ee-alexvmt/assets/Zambezi');
 
-// Union regions of interest
+// Union all regions of interest
 var roi = binga.geometry().union(hwange.geometry());
 var roi = roi.union(mufunta.geometry());
 var roi = roi.union(mulobesi.geometry());
@@ -78,24 +78,52 @@ var train_points = points.filter('subset == "train"');
 var test_points = points.filter('subset == "test"');
 
 // Create train data
-var train = s2_image.clip(roi).select(bands).sampleRegions({
-	collection: train_points,
-	properties: ['crop'],
-	scale: 10
+var train = s2_image
+	.clip(roi)
+	.select(bands)
+	.sampleRegions({
+		collection: train_points,
+		properties: ['crop'],
+		scale: 10
 	});
 
 // Create test data
-var test = s2_image.clip(roi).select(bands).sampleRegions({
-	collection: test_points,
-	properties: ['crop'],
-	scale: 10
+var test = s2_image
+	.clip(roi)
+	.select(bands)
+	.sampleRegions({
+		collection: test_points,
+		properties: ['crop'],
+		scale: 10
+	});
+	
+// Train classifier and get class probabilities
+var classifier = ee.Classifier.smileRandomForest(10)
+	.train({
+		features: train,
+		classProperty: 'crop',
+		inputProperties: bands
+		})
+  .setOutputMode('PROBABILITY');
+ 
+ // Classify test set
+var test_pred = test.classify(classifier);
+
+// Export predicted class probabilities
+Export.table.toDrive({
+    collection: test_pred,
+    description: 'export_predicted_class_probabilities',
+    folder: 'random_forest',
+    fileNamePrefix: 'predicted_class_probabilities',
+    fileFormat: 'CSV'
 	});
 
-// Train classifier
-var classifier = ee.Classifier.smileRandomForest(10).train({
-	features: train,
-	classProperty: 'crop',
-	inputProperties: bands
+// Train classifier and get class prediction
+var classifier = ee.Classifier.smileRandomForest(10)
+	.train({
+		features: train,
+		classProperty: 'crop',
+		inputProperties: bands
 	});
 
 // Print some info about the classifier
@@ -117,9 +145,12 @@ var testAccuracy = test_pred.errorMatrix('crop', 'classification');
 print('Test accuracy: ', testAccuracy.accuracy());
 
 // Classify roi
-var classified_image = s2_image.clip(roi).select(bands).classify(classifier);
+var classified_image = s2_image
+	.clip(roi)
+	.select(bands)
+	.classify(classifier);
 
-// Get roi bounding box (copy out line 124 and use line 123 instead, if you selected a single roi above)
+// Get roi bounding box (if you selected a single roi above comment out line 135 and use line 134 instead)
 //var bounding_box = roi.geometry().bounds();
 var bounding_box = roi.bounds();
 
@@ -157,7 +188,7 @@ var pred_params = {
 
 // Visualize points and images
 Map.centerObject(roi);
-Map.addLayer(s2_image.clip(box_buffered), vis_params, 'RGB');
+Map.addLayer(s2_image.clip(box_buffered), vis_params, 'Sentinel-2 mean composite April 2020 RGB');
 Map.addLayer(train_points.draw({color: 'orange', pointRadius: 1, strokeWidth: 1}), {}, 'Train points');
 Map.addLayer(test_points.draw({color: 'blue', pointRadius: 1, strokeWidth: 1}), {}, 'Test points');
-Map.addLayer(classified_image, pred_params, 'Classification');
+Map.addLayer(classified_image, pred_params, 'Prediction');
