@@ -44,7 +44,7 @@ Export.table.toDrive({
   folder: 'NAM',
   //folder: 'ZAM',
   //folder: 'ZIM',
-  fileNamePrefix: 'actual_labels'
+  fileNamePrefix: 'actual_labels',
   fileFormat: 'CSV'
   });
 
