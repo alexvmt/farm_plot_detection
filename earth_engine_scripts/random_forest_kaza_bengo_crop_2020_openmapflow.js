@@ -18,13 +18,10 @@ function maskS2clouds(image) {
 	return image.updateMask(mask).divide(10000);
 	};
 
-// Load dataset (pick one, comment out the others)
-var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_random_2000');
-//var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_uniform_2000');
-//var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_random_20000');
-//var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/kaza_bengo_crop_2020_uniform_20000');
+// Load dataset used in OpenMapFlow
+var kaza_bengo_crop_2020 = ee.FeatureCollection('projects/ee-alexvmt/assets/OpenMapFlow_KAZABengoCrop2020Random2000');
 
-// Load individual region of interest (make sure to comment out lines 36 to 48, if you pick one of the six regions of interest right below)
+// Load individual region of interest (make sure to comment out lines 33 to 45, if you pick one of the six regions of interest right below)
 //var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Binga');
 //var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Hwange');
 //var roi = ee.FeatureCollection('projects/ee-alexvmt/assets/Mufunta');
@@ -47,7 +44,7 @@ var roi = roi.union(mulobesi.geometry());
 var roi = roi.union(sichifulo.geometry());
 var roi = roi.union(zambezi.geometry());
 
-// Get roi bounding box (if you selected a single roi above comment out line 52 and use line 51 instead)
+// Get roi bounding box (if you selected a single roi above comment out line 49 and use line 48 instead)
 //var bounding_box = roi.geometry().bounds();
 var bounding_box = roi.bounds();
 
@@ -73,10 +70,16 @@ var box_buffered = box.buffer({'distance': 1000});
 // Get points within roi
 var points = kaza_bengo_crop_2020.filterBounds(roi);
 
+// Set start and end date
+var start_date = '2020-04-01';
+var end_date = '2020-04-30';
+
 // Select Sentinel-2 images
 var s2_images = ee.ImageCollection('COPERNICUS/S2_SR')
+  // Filter bounds
+  //.filterBounds(roi)
 	// Filter date
-	.filterDate('2020-04-01', '2020-04-30')
+	.filterDate(start_date, end_date)
 	// Pre-filter to get less cloudy granules
 	.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 10))
 	// Apply cloud mask
@@ -96,9 +99,10 @@ var s2_image = s2_images
 // Select bands and NDVI for classification
 var bands = ['B2', 'B3', 'B4', 'B8', 'NDVI'];
 
-// Train test split
-var train_points = points.filter('subset == "train"');
-var test_points = points.filter('subset == "test"');
+// Train val test split
+var train_points = points.filter('subset == "training"');
+var val_points = points.filter('subset == "validation"');
+var test_points = points.filter('subset == "testing"');
 
 // Create train data
 var train = s2_image
@@ -106,6 +110,16 @@ var train = s2_image
 	.select(bands)
 	.sampleRegions({
 		collection: train_points,
+		properties: ['crop'],
+		scale: 10
+	});
+
+// Create val data
+var val = s2_image
+	.clip(roi)
+	.select(bands)
+	.sampleRegions({
+		collection: val_points,
 		properties: ['crop'],
 		scale: 10
 	});
@@ -129,15 +143,27 @@ var classifier = ee.Classifier.smileRandomForest(10)
 		})
   .setOutputMode('PROBABILITY');
  
- // Classify test set
+// Classify val set
+var val_pred = val.classify(classifier);
+
+// Export predicted class probabilities
+Export.table.toDrive({
+    collection: val_pred,
+    description: 'export_predicted_class_probabilities_val',
+    folder: 'random_forest',
+    fileNamePrefix: 'predicted_class_probabilities_val',
+    fileFormat: 'CSV'
+	});
+
+// Classify test set
 var test_pred = test.classify(classifier);
 
 // Export predicted class probabilities
 Export.table.toDrive({
     collection: test_pred,
-    description: 'export_predicted_class_probabilities',
+    description: 'export_predicted_class_probabilities_test',
     folder: 'random_forest',
-    fileNamePrefix: 'predicted_class_probabilities',
+    fileNamePrefix: 'predicted_class_probabilities_test',
     fileFormat: 'CSV'
 	});
 
@@ -152,16 +178,19 @@ var classifier = ee.Classifier.smileRandomForest(10)
 // Print some info about the classifier
 print('Random forest, explained', classifier.explain());
 
+// Classify val set
+var val_pred = val.classify(classifier);
+
 // Classify test set
 var test_pred = test.classify(classifier);
-
-// Print confusion matrix
-var confusionMatrix = test_pred.errorMatrix('crop', 'classification');
-print('Confusion Matrix', confusionMatrix);
 
 // Calculate train accuracy
 var trainAccuracy = classifier.confusionMatrix();
 print('Train accuracy: ', trainAccuracy.accuracy());
+
+// Calculate val accuracy
+var valAccuracy = val_pred.errorMatrix('crop', 'classification');
+print('Val accuracy: ', valAccuracy.accuracy());
 
 // Calculate test accuracy
 var testAccuracy = test_pred.errorMatrix('crop', 'classification');
@@ -190,5 +219,6 @@ var pred_params = {
 Map.centerObject(roi);
 Map.addLayer(s2_image.clip(box_buffered), vis_params, 'Sentinel-2 mean composite April 2020 RGB');
 Map.addLayer(train_points.draw({color: 'orange', pointRadius: 1, strokeWidth: 1}), {}, 'Train points');
+Map.addLayer(val_points.draw({color: 'purple', pointRadius: 1, strokeWidth: 1}), {}, 'Val points');
 Map.addLayer(test_points.draw({color: 'blue', pointRadius: 1, strokeWidth: 1}), {}, 'Test points');
 Map.addLayer(classified_image, pred_params, 'Prediction');
