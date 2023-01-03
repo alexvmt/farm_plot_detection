@@ -1,4 +1,4 @@
-// Polygons for vegetation and water landcover classes
+// Polygons for vegetation and water land_cover classes
 var vegetation = /* color: #22ff38 */ee.Geometry.Polygon(
         [[[23.582951349848393, -16.64814046527994],
           [23.581921381586675, -16.648716094398043],
@@ -51,14 +51,14 @@ var farm_plots = ee.FeatureCollection('projects/ee-alexvmt/assets/farm_plots_fix
 // Add class and select class property only
 var farm_plots_processed = farm_plots
 	.map(function(feature){
-	return feature.set('landcover', 2);
+	return feature.set('land_cover', 2);
 	})
-	.select('landcover');
+	.select('land_cover');
 
 // Merge vegetation, water and farm plots features
 var features = ee.FeatureCollection([
-	ee.Feature(vegetation, {'landcover': 0}),
-	ee.Feature(water, {'landcover': 1})
+	ee.Feature(vegetation, {'land_cover': 0}),
+	ee.Feature(water, {'land_cover': 1})
 	])
 	.merge(farm_plots_processed);
 
@@ -77,14 +77,14 @@ var bands = ['B2', 'B3', 'B4', 'B8', 'NDVI'];
 // Create training data
 var training = s2_image.select(bands).sampleRegions({
 	collection: features,
-	properties: ['landcover'],
+	properties: ['land_cover'],
 	scale: 10
 	});
 
 // Train classifier
 var classifier = ee.Classifier.smileRandomForest(10).train({
 	features: training,
-	classProperty: 'landcover',
+	classProperty: 'land_cover',
 	inputProperties: bands
 	});
 
@@ -117,7 +117,7 @@ var testingPartition = withRandom.filter(ee.Filter.gte('random', split));
 // Train classifier on train set
 var trainedClassifier = ee.Classifier.smileRandomForest(10).train({
 	features: trainingPartition,
-	classProperty: 'landcover',
+	classProperty: 'land_cover',
 	inputProperties: bands
 	});
 
@@ -125,7 +125,7 @@ var trainedClassifier = ee.Classifier.smileRandomForest(10).train({
 var test = testingPartition.classify(trainedClassifier);
 
 // Print confusion matrix
-var confusionMatrix = test.errorMatrix('landcover', 'classification');
+var confusionMatrix = test.errorMatrix('land_cover', 'classification');
 print('Confusion Matrix', confusionMatrix);
 
 // Calculate train accuracy
@@ -133,5 +133,5 @@ var trainAccuracy = trainedClassifier.confusionMatrix();
 print('Train accuracy: ', trainAccuracy.accuracy());
 
 // Calculate test accuracy
-var testAccuracy = test.errorMatrix('landcover', 'classification');
+var testAccuracy = test.errorMatrix('land_cover', 'classification');
 print('Test accuracy: ', testAccuracy.accuracy());

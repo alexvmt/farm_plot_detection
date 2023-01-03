@@ -9,8 +9,8 @@ There are two datasets to explore.
 First, there is a dataset collected during a WWF field campaign, consisting of point coordinates that mark farm plots and spanning the period from 2017 to 2020.
 These point coordinates have been used by WWF as the basis for manually drawing farm plot polygons using Google Earth in 2022.
 [This](https://github.com/alexvmt/farm_plot_detection/blob/main/exploring_farm_plot_polygons_and_points.ipynb) notebook describes and explores the field campaign data in detail.
-Second, there is the [KAZA landcover](https://space-science.wwf.de/KAZAlandcover/) dataset by WWF, constituting a landcover map for the entire KAZA complex
-based on 2020 data and with 18 distinct landcover classes, including cropland.
+Second, there is the [KAZA land cover](https://space-science.wwf.de/KAZAlandcover/) dataset by WWF, constituting a land cover map for the entire KAZA complex
+based on 2020 data and with 18 distinct land cover classes, including cropland.
 The data can be downloaded [here](https://panda.maps.arcgis.com/home/item.html?id=0bd9f1902e4c4b9389d8c1f473c76d04),
 including a link to the technical report that describes the dataset and its creation in detail.
 
@@ -20,7 +20,7 @@ It is of particular relevance to create crop maps for the 6 Bengo regions within
 
 - [What does the region look like from space anyway?](#what-does-the-region-look-like-from-space-anyway)
 - [Cropland mapping using field campaign dataset](#cropland-mapping-using-field-campaign-dataset)
-- [Cropland mapping using KAZA landcover dataset](#cropland-mapping-using-kaza-landcover-dataset)
+- [Cropland mapping using KAZA land cover dataset](#cropland-mapping-using-kaza-land-cover-dataset)
 - [Requirements](#requirements)
 - [References and further information](#references-and-further-information)
 
@@ -56,7 +56,7 @@ The harvest takes place in April/May.
 
 The used models are trained and applied to the sample region of Sioma, using Google Earth Engine.
 
-The used landcover classes include:
+The used land cover classes include:
 
 - Green: vegetation
 - Blue: water
@@ -85,14 +85,14 @@ Some farm plot pixels are correctly classified but bare soil, settlement areas a
 Using a more complex model, namely a neural net with 3 hidden layers, doesn't seem to yield significantly better classification results.
 The classified image can be further explored in a split panel in Earth Engine using [this](https://code.earthengine.google.com/e6330a14c56f93e9a8fb88d74b7ad726) link to the Code Editor.
 The issue of distinguishing farm plots, bare soil, settlements and roads remains.
-Other landcover classes containing bare soil and human-influenced structures like settlements and roads could be helpful (e. g. KAZA Landcover 2020).
+Other land cover classes containing bare soil and human-influenced structures like settlements and roads could be helpful (e. g. KAZA Land Cover 2020).
 Instance segmentation, considering the shape of objects, or leveraging the fact that a farm plot pixel looks differently throughout the year could also be more promising paths.
 
 
 
-## Cropland mapping using KAZA landcover dataset
+## Cropland mapping using KAZA land cover dataset
 
-[This](https://github.com/alexvmt/farm_plot_detection/blob/main/sample_points_from_kaza_landcover_2020.ipynb) notebook is used to sample crop and non-crop points from the KAZA landcover dataset.
+[This](https://github.com/alexvmt/farm_plot_detection/blob/main/sample_points_from_kaza_landcover_2020.ipynb) notebook is used to sample crop and non-crop points from the KAZA land cover dataset.
 
 ### Random forest
 
@@ -152,7 +152,7 @@ The class distribution in the used dataset is also shown as a reference.
 and Sentinel-2 data and applies a pre-trained deep learning model, that can be tuned using data from the respective region of interest,
 resulting in superior predictive performance compared to using data containing a single timestep.
 
-The model used to create the exemplary maps below includes 2000 randomly sampled points from the KAZA landcover dataset (and data from the GeowikiLandcover 2017 dataset).
+The model used to create the exemplary maps below includes 2000 randomly sampled points from the KAZA land cover dataset (and data from the GeowikiLandcover 2017 dataset).
 The maps have been created using [this](https://github.com/alexvmt/farm_plot_detection/blob/main/create_maps_for_small_regions.ipynb) notebook
 (using data exported via Earth Engine and stored in a Google Cloud bucket)
 They can be further explored in Earth Engine using [this](https://code.earthengine.google.com/ce46260d6860db9667aaa2169fc7174a) link to the Code Editor.
