@@ -76,8 +76,6 @@ var end_date = '2020-04-30';
 
 // Select Sentinel-2 images
 var s2_images = ee.ImageCollection('COPERNICUS/S2_SR')
-  // Filter bounds
-  //.filterBounds(roi)
 	// Filter date
 	.filterDate(start_date, end_date)
 	// Pre-filter to get less cloudy granules
