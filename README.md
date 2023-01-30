@@ -1,9 +1,11 @@
-# Exploring and Detecting Farm Plots in the Kavango-Zambezi Transfrontier Conservation Area
+# Exploring and Detecting Farm Plots in the Kavango-Zambezi Transfrontier Conservation Area in Collaboration with WWF Germany
 
 This project is about monitoring agricultural practices in the [Kavango-Zambezi Transfrontier Conservation Area](https://space-science.wwf.de/KAZAStory/)
 in collaboration with [WWF Germany's Space+Science Team](https://space-science.wwf.de/).
 To do so, it is necessary to know where agricultural areas (i. e. farm plots) are and how their locations and properties change over time.
 Satellite images (e. g. from Sentinel-2) can be used to identifiy cropland, applying different methods such as pixel-wise classification and instance segmentation.
+
+A report on the project's current status can be found [here](https://github.com/alexvmt/farm_plot_detection/blob/main/report.pdf).
 
 There are two datasets to explore.
 First, there is a dataset collected during a WWF field campaign, consisting of point coordinates that mark farm plots and spanning the period from 2017 to 2020.
@@ -166,7 +168,7 @@ The classification threshold is currently set to 0.5 but should be optimized to 
 
 ![zam sites bengo crop mask 2020 example](visualizations/zam_sites_bengo_crop_mask_2020_example.png 'zam sites bengo crop mask 2020 example')
 
-The model can be applied to all 6 Bengo regions to create crop maps for 2020 and 2021 if it is satisfactory with regard to performance and map quality.
+The model can be applied to all 6 Bengo regions to create crop maps for 2020, 2021 and 2022 if it is satisfactory with regard to performance and map quality.
 Maps for small regions can be created locally or in Google Colab but Google Cloud should be used to create large-scale maps.
 
 
