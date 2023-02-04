@@ -10,13 +10,22 @@ A report on the project's current status can be found [here](https://github.com/
 There are two datasets to explore.
 First, there is a dataset collected during a WWF field campaign, consisting of point coordinates that mark farm plots and spanning the period from 2017 to 2020.
 These point coordinates have been used by WWF as the basis for manually drawing farm plot polygons using Google Earth in 2022.
-[This](https://github.com/alexvmt/farm_plot_detection/blob/main/exploring_farm_plot_polygons_and_points.ipynb) notebook describes and explores the field campaign data in detail.
-Second, there is the [KAZA land cover](https://space-science.wwf.de/KAZAlandcover/) dataset by WWF, constituting a land cover map for the entire KAZA complex
+[This](https://github.com/alexvmt/farm_plot_detection/blob/main/field_campaign_dataset/exploring_farm_plot_polygons_and_points.ipynb) notebook
+describes and explores the field campaign data in detail.
+Second, there is the [KAZA land cover](https://space-science.wwf.de/KAZAlandcover/) dataset by WWF,
+constituting a land cover map for the entire KAZA complex
 based on 2020 data and with 18 distinct land cover classes, including cropland.
 The data can be downloaded [here](https://panda.maps.arcgis.com/home/item.html?id=0bd9f1902e4c4b9389d8c1f473c76d04),
 including a link to the technical report that describes the dataset and its creation in detail.
 
-It is of particular relevance to create crop maps for the 6 Bengo regions within KAZA.
+It is of particular relevance to explore and detect farm plots in the 6 Bengo regions and the ARISE project within KAZA.
+
+Repository structure:
+- `earth_engine_python_api`: notebooks using the Google Earth Engine Python API
+- `earth_engine_script`: scripts to be run in Google Earth Engine directly
+- `field_campaign_dataset`: notebooks using the field campaign dataset
+- `kaza_land_cover_dataset`: notebooks using the KAZA land cover dataset
+- `visualizations`: created graphs, images and maps
 
 **Contents**
 
@@ -30,7 +39,8 @@ It is of particular relevance to create crop maps for the 6 Bengo regions within
 
 ## What does the region look like from space anyway?
 
-The following images show Sentinel-2 RGB mean composites at different temporal resolutions for the sample region of Sioma in 2020, created using Google Earth Engine.
+The following images show Sentinel-2 RGB mean composites at different temporal resolutions for the sample region of Sioma in 2020,
+created using Google Earth Engine.
 
 ### Yearly resolution
 
@@ -64,7 +74,8 @@ The used land cover classes include:
 - Blue: water
 - Yellow: farm_plots
 
-The data for the vegetation and water classes consist of hand-drawn points while the farm_plots class represents the point coordinates/polygons from the field campaign dataset mentioned above.
+The data for the vegetation and water classes consist of hand-drawn points
+while the farm_plots class represents the point coordinates/polygons from the field campaign dataset mentioned above.
 
 ### Random forest
 
@@ -85,56 +96,60 @@ Some farm plot pixels are correctly classified but bare soil, settlement areas a
 ![neural net sioma points](visualizations/neural_net_sioma_points.png 'neural net sioma points')
 
 Using a more complex model, namely a neural net with 3 hidden layers, doesn't seem to yield significantly better classification results.
-The classified image can be further explored in a split panel in Earth Engine using [this](https://code.earthengine.google.com/e6330a14c56f93e9a8fb88d74b7ad726) link to the Code Editor.
+The classified image can be further explored in a split panel in Google Earth Engine using
+[this](https://code.earthengine.google.com/e6330a14c56f93e9a8fb88d74b7ad726) link to the Code Editor.
 The issue of distinguishing farm plots, bare soil, settlements and roads remains.
-Other land cover classes containing bare soil and human-influenced structures like settlements and roads could be helpful (e. g. KAZA Land Cover 2020).
-Instance segmentation, considering the shape of objects, or leveraging the fact that a farm plot pixel looks differently throughout the year could also be more promising paths.
+Other land cover classes containing bare soil and human-influenced structures like settlements and roads could be helpful (e. g. KAZA land cover dataset).
+Instance segmentation, considering the shape of objects,
+or leveraging the fact that a farm plot pixel looks differently throughout the year could also be more promising paths.
 
 
 
 ## Cropland mapping using KAZA land cover dataset
 
-[This](https://github.com/alexvmt/farm_plot_detection/blob/main/sample_points_from_kaza_landcover_2020.ipynb) notebook is used to sample crop and non-crop points from the KAZA land cover dataset.
+[This](https://github.com/alexvmt/farm_plot_detection/blob/main/kaza_land_cover_dataset/sample_points_from_kaza_landcover_2020.ipynb) notebook
+is used to sample crop and non-crop points from the KAZA land cover dataset.
 
 ### Random forest
 
-A random forest classifier is applied to each one of the 6 Bengo regions and also to all of them at once to verify the validity of the sampled points and the resulting classification.
+A random forest classifier is applied to each one of the 6 Bengo regions and also to all of them at once
+to verify the validity of the sampled points and the resulting classification.
 Four different balanced datasets are evaluated.
 A Sentinel-2 cloud-masked mean composite from April 2020 is used as the input image.
 The features used are the bands B2, B3, B4 and B8 and also NDVI.
 
 | Sampling mode | Sample size | Region    | Train accuracy | Test accuracy |
 |---------------|-------------|-----------|----------------|---------------|
-| Random        | 2000        | Binga     | 0.96           | 0.82          |
-| Random        | 2000        | Hwange    | 0.95           | 0.66          |
-| Random        | 2000        | Mufunta   | 0.96           | 0.73          |
-| Random        | 2000        | Mulobesi  | 0.98           | 0.94          |
-| Random        | 2000        | Sichifulo | 0.94           | 0.78          |
-| Random        | 2000        | Zambezi   | 0.95           | 0.65          |
-| Uniform       | 2000        | Binga     | 0.93           | 0.75          |
-| Uniform       | 2000        | Hwange    | 0.96           | 0.75          |
-| Uniform       | 2000        | Mufunta   | 0.94           | 0.75          |
-| Uniform       | 2000        | Mulobesi  | 0.92           | 0.61          |
-| Uniform       | 2000        | Sichifulo | 0.97           | 0.88          |
-| Uniform       | 2000        | Zambezi   | 0.96           | 0.71          |
-| Random        | 20000       | Binga     | 0.95           | 0.78          |
-| Random        | 20000       | Hwange    | 0.95           | 0.78          |
-| Random        | 20000       | Mufunta   | 0.96           | 0.81          |
-| Random        | 20000       | Mulobesi  | 0.97           | 0.82          |
-| Random        | 20000       | Sichifulo | 0.96           | 0.85          |
-| Random        | 20000       | Zambezi   | 0.94           | 0.72          |
-| Uniform       | 20000       | Binga     | 0.96           | 0.74          |
-| Uniform       | 20000       | Hwange    | 0.96           | 0.8           |
-| Uniform       | 20000       | Mufunta   | 0.96           | 0.74          |
-| Uniform       | 20000       | Mulobesi  | 0.96           | 0.77          |
-| Uniform       | 20000       | Sichifulo | 0.96           | 0.8           |
-| Uniform       | 20000       | Zambezi   | 0.95           | 0.71          |
-| Random        | 2000        | All       | 0.96           | 0.68          |
-| Uniform       | 2000        | All       | 0.95           | 0.7           |
-| Random        | 20000       | All       | 0.95           | 0.74          |
-| Uniform       | 20000       | All       | 0.96           | 0.74          |
+| Random        | 2,000        | Binga     | 0.96           | 0.82          |
+| Random        | 2,000        | Hwange    | 0.95           | 0.66          |
+| Random        | 2,000        | Mufunta   | 0.96           | 0.73          |
+| Random        | 2,000        | Mulobesi  | 0.98           | 0.94          |
+| Random        | 2,000        | Sichifulo | 0.94           | 0.78          |
+| Random        | 2,000        | Zambezi   | 0.95           | 0.65          |
+| Uniform       | 2,000        | Binga     | 0.93           | 0.75          |
+| Uniform       | 2,000        | Hwange    | 0.96           | 0.75          |
+| Uniform       | 2,000        | Mufunta   | 0.94           | 0.75          |
+| Uniform       | 2,000        | Mulobesi  | 0.92           | 0.61          |
+| Uniform       | 2,000        | Sichifulo | 0.97           | 0.88          |
+| Uniform       | 2,000        | Zambezi   | 0.96           | 0.71          |
+| Random        | 20,000       | Binga     | 0.95           | 0.78          |
+| Random        | 20,000       | Hwange    | 0.95           | 0.78          |
+| Random        | 20,000       | Mufunta   | 0.96           | 0.81          |
+| Random        | 20,000       | Mulobesi  | 0.97           | 0.82          |
+| Random        | 20,000       | Sichifulo | 0.96           | 0.85          |
+| Random        | 20,000       | Zambezi   | 0.94           | 0.72          |
+| Uniform       | 20,000       | Binga     | 0.96           | 0.74          |
+| Uniform       | 20,000       | Hwange    | 0.96           | 0.8           |
+| Uniform       | 20,000       | Mufunta   | 0.96           | 0.74          |
+| Uniform       | 20,000       | Mulobesi  | 0.96           | 0.77          |
+| Uniform       | 20,000       | Sichifulo | 0.96           | 0.8           |
+| Uniform       | 20,000       | Zambezi   | 0.95           | 0.71          |
+| Random        | 2,000        | All       | 0.96           | 0.68          |
+| Uniform       | 2,000        | All       | 0.95           | 0.7           |
+| Random        | 20,000       | All       | 0.95           | 0.74          |
+| Uniform       | 20,000       | All       | 0.96           | 0.74          |
 
-Finally, a crop map is created for the 6 Bengo regions, using the dataset containing 20000 randomly sampled points.
+Finally, a crop map is created for the 6 Bengo regions, using the dataset containing 20,000 randomly sampled points.
 The class distribution in the used dataset is also shown as a reference.
 
 <table>
@@ -150,37 +165,45 @@ The class distribution in the used dataset is also shown as a reference.
 
 ### OpenMapFlow
 
-[NASA Harvest's OpenMapFlow](https://github.com/nasaharvest/openmapflow) takes into account that pixel values change throughout the year, uses more than just RGB bands
+[NASA Harvest's OpenMapFlow](https://github.com/nasaharvest/openmapflow) takes into account that pixel values change throughout the year,
+uses more than just RGB bands
 and Sentinel-2 data and applies a pre-trained deep learning model, that can be tuned using data from the respective region of interest,
 resulting in superior predictive performance compared to using data containing a single timestep.
 
-The model used to create the exemplary maps below includes 2000 randomly sampled points from the KAZA land cover dataset (and data from the GeowikiLandcover 2017 dataset).
-The maps have been created using [this](https://github.com/alexvmt/farm_plot_detection/blob/main/create_maps_for_small_regions.ipynb) notebook
-(using data exported via Earth Engine and stored in a Google Cloud bucket)
-They can be further explored in Earth Engine using [this](https://code.earthengine.google.com/ce46260d6860db9667aaa2169fc7174a) link to the Code Editor.
+The model used to create the exemplary maps below includes 2,000 randomly sampled points from the KAZA land cover dataset
+(and data from the GeowikiLandcover 2017 dataset).
+The maps have been created using
+[this](https://github.com/alexvmt/farm_plot_detection/blob/main/kaza_land_cover_dataset/create_maps_for_small_regions.ipynb) notebook
+(using data exported via Google Earth Engine and stored in a Google Cloud bucket)
+They can be further explored in Google Earth Engine using
+[this](https://code.earthengine.google.com/ce46260d6860db9667aaa2169fc7174a) link to the Code Editor.
 The classification threshold is currently set to 0.5 but should be optimized to create the best possible crop masks.
 
-#### Exemplary 2020 crop probability map (Zambia)
+<table>
+	<tr>
+		<th>Exemplary 2020 crop probability map (Zambia)</th>
+		<th>Exemplary 2020 crop mask (Zambia)</th>
+	</tr>
+	<tr>
+		<td> <img src="visualizations/zam_sites_bengo_crop_probability_map_2020_example.png" style="max-width:100%;height:auto" /> </td>
+		<td> <img src="visualizations/zam_sites_bengo_crop_mask_2020_example.png" style="max-width:100%;height:auto" /> </td>
+	</tr>
+</table>
 
-![zam sites bengo crop probability map 2020 example](visualizations/zam_sites_bengo_crop_probability_map_2020_example.png 'zam sites bengo crop probability map 2020 example')
-
-#### Exemplary 2020 crop mask (Zambia)
-
-![zam sites bengo crop mask 2020 example](visualizations/zam_sites_bengo_crop_mask_2020_example.png 'zam sites bengo crop mask 2020 example')
-
-The model can be applied to all 6 Bengo regions to create crop maps for 2020, 2021 and 2022 if it is satisfactory with regard to performance and map quality.
+The model could be applied to all 6 Bengo regions and the ARISE project to create crop maps for 2020, 2021 and 2022
+if it is satisfactory with regard to performance and map quality.
 Maps for small regions can be created locally or in Google Colab but Google Cloud should be used to create large-scale maps.
 
 
 
 ## Requirements
 
-Assuming `conda` is installed, do the following to run the notebooks:
+Assuming `conda` is installed, run  the following to run the Python notebooks:
 
 - create environment: `conda env create --file=farm_plot_detection.yaml`
 - activate environment: `conda activate farm_plot_detection`
 
-The Earth Engine Python API notebooks and the notebook to create maps for small regions are best run directly in Google Colab.
+The Google Earth Engine Python API notebooks and the notebook to create maps for small regions using OpenMapFlow are best run directly in Google Colab.
 
 
 
